@@ -1,0 +1,25 @@
+{% include '_header.html' %}
+
+<h1>BLOG</h1>
+
+<div class="container">
+
+    <div class="row g-4">
+        {% for objava in objave %}
+        <div class="col-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">{{ objava.naslov }}</h3>
+                    <p class="card-text">{{ objava.opis }}</p>
+                    <a href="blog/{{ objava._id }}" class="btn btn-primary btn-sm">Small button</a>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">{{ objava.ustvarjeno.strftime("%Y-%m-%d %H:%M:%S") }}</small>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% include '_footer.html' %}
