@@ -1,0 +1,20 @@
+{% include '_header.html' %}
+
+<h1>Arhiv</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <ul class="list-group">
+                <li class="list-group-item active fw-bold" aria-current="true">Arhiv objav:</li>
+                {% for objava in arhiv_objave %}
+                <li class="list-group-item">Objava: <a href="/blog/{{objava._id}}"><b>{{ objava.naslov }}</b></a><br>
+                    Ustvarjeno: <i>{{ objava.ustvarjeno.strftime("%Y-%m-%d %H:%M:%S") }}</i></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+{% include '_footer.html' %}

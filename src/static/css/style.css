@@ -1,0 +1,8 @@
+.modal-header {
+    justify-content: center;
+    border-bottom: 0;
+}
+
+.modal-footer {
+    border-top: 0;
+}

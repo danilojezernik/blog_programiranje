@@ -26,9 +26,19 @@ def get_blog_id(_id):
     return render_template('blog_id.html', objava=db.this.objave.find_one(ObjectId(_id)))
 
 
+@app.route("/arhiv")
+def get_arhiv():
+    return render_template('arhiv.html', arhiv_objave=db.this.objave.find())
+
+
 @app.route("/kontakt")
 def get_kontakt():
     return render_template('kontakt.html')
+
+
+@app.route("/admin")
+def get_admin():
+    return render_template('admin.html')
 
 
 @app.errorhandler(404)
