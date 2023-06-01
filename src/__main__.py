@@ -1,5 +1,5 @@
 from bson import ObjectId
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 from src import db
 
@@ -18,7 +18,8 @@ def get_avtor():
 
 @app.route("/blog")
 def get_blog():
-    return render_template('blog.html', objave=db.this.objave.find())
+    objave = db.this.objave.find().limit(5)
+    return render_template('blog.html', objave=objave)
 
 
 @app.route("/blog/<_id>")

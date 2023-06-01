@@ -21,6 +21,22 @@ objave = [
     asdict(Objava(naslov='Kotlin', podnaslov='Zakaj Kotlin', kategorije=['programiranje', 'kotlin'],
                   opis='Python je danes eden izmed najbolj razširjenimi programskimi jeziki',
                   vsebina='Že vrsto let je Kotlin znan kot programski jezik, ki se najbolj uporablja pri programiranju',
+                  ustvarjeno=datetime.datetime.now())),
+    asdict(Objava(naslov='Kotlin 2', podnaslov='Zakaj Kotlin', kategorije=['programiranje', 'kotlin'],
+                  opis='Python je danes eden izmed najbolj razširjenimi programskimi jeziki',
+                  vsebina='Že vrsto let je Kotlin znan kot programski jezik, ki se najbolj uporablja pri programiranju',
+                  ustvarjeno=datetime.datetime.now())),
+    asdict(Objava(naslov='Kotlin 3', podnaslov='Zakaj Kotlin', kategorije=['programiranje', 'kotlin'],
+                  opis='Python je danes eden izmed najbolj razširjenimi programskimi jeziki',
+                  vsebina='Že vrsto let je Kotlin znan kot programski jezik, ki se najbolj uporablja pri programiranju',
+                  ustvarjeno=datetime.datetime.now())),
+    asdict(Objava(naslov='Kotlin 4', podnaslov='Zakaj Kotlin', kategorije=['programiranje', 'kotlin'],
+                  opis='Python je danes eden izmed najbolj razširjenimi programskimi jeziki',
+                  vsebina='Že vrsto let je Kotlin znan kot programski jezik, ki se najbolj uporablja pri programiranju',
+                  ustvarjeno=datetime.datetime.now())),
+    asdict(Objava(naslov='Kotlin 5', podnaslov='Zakaj Kotlin', kategorije=['programiranje', 'kotlin'],
+                  opis='Python je danes eden izmed najbolj razširjenimi programskimi jeziki',
+                  vsebina='Že vrsto let je Kotlin znan kot programski jezik, ki se najbolj uporablja pri programiranju',
                   ustvarjeno=datetime.datetime.now()))
 ]
 
