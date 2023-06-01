@@ -8,41 +8,116 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>Blog o programiranju</title>
 </head>
-<body class="container p-2 p-md-5">
-<h1 class="py-3">Blog o programiranju</h1>
-<a href="/">Domov</a>
-<a href="/avtor">Avtor</a>
-<a href="/blog">Blog</a>
-<a href="/arhiv">Arhiv</a>
-<a href="/kontakt">Kontakt</a>
-<!-- Button trigger modal -->
-<a type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Login
-</a>
+<body>
+<div class="container-fluid shadow">
+    <!-- Socialna omrežja in Isklanje desno -->
+    <div class="container">
+        <nav class="navbar navbar-light">
+            <div class="container-fluid">
+                <div>
+                    <img class="pe-3" src="https://img.icons8.com/dotty/20/domain.png" alt="domain"/>
+                    <img class="pe-3" src="https://img.icons8.com/ios/20/facebook-new.png" alt="facebook-new"/>
+                    <img class="pe-3" src="https://img.icons8.com/ios/20/instagram-new--v1.png"
+                         alt="instagram-new--v1"/>
+                    <img class="pe-3" src="https://img.icons8.com/ios/20/linkedin.png" alt="linkedin"/>
+                </div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header text-center">
-                <h5 class="modal-title" id="exampleModalLabel">Vpis skrbnika</h5>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput">Uporabniško ime</label>
-                    </div>
-                    <div class="form-floating">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                        <label for="floatingPassword">Geslo</label>
+
+                <form class="d-flex">
+                    <a class="btn btn-outline-success" type="submit" data-bs-toggle="modal"
+                       data-bs-target="#searchModal">Search
+                    </a>
+                    <!-- Modal Search -->
+                    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header text-center">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body p-5">
+                                    <input class="form-control border-0 border-bottom text-center me-2 p-3 fs-3"
+                                           type="search"
+                                           placeholder="Kaj iščete?"
+                                           aria-label="Search">
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-success btn-lg"
+                                            data-bs-dismiss="modal">
+                                        Najdi
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zapri</button>
-                <a href="/admin" class="btn btn-primary">Logiraj se</a>
-            </div>
-        </div>
+        </nav>
     </div>
+    <!-- KONEC -->
+
+    <!-- Napis glavni -->
+    <div class="container py-4 text-center">
+        <h1>Programiranje</h1>
+        <p class="lead text-secondary">Blog o FullStack programiranju</p>
+    </div>
+    <!-- KONEC -->
+
+    <!-- Navbar -->
+    <div class="container">
+        <ul class="nav justify-content-center text-decoration-none py-3 border-top text-uppercase fs-5">
+            <li class="nav-item">
+                <a class="nav-link text-success" aria-current="page" href="/">Domov</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-success" href="/avtor">Avtor</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-success" href="/blog">Blog</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-success" href="/arhiv">Arhiv</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-success" href="/kontakt">Kontakt</a>
+            </li>
+            <li class="nav-item">
+                <!-- Button trigger modal -->
+                <a type="button" class="nav-link text-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Login
+                </a>
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h5 class="modal-title" id="exampleModalLabel">Vpis skrbnika</h5>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="floatingInput"
+                                               placeholder="name@example.com">
+                                        <label for="floatingInput">Uporabniško ime</label>
+                                    </div>
+                                    <div class="form-floating">
+                                        <input type="password" class="form-control" id="floatingPassword"
+                                               placeholder="Password">
+                                        <label for="floatingPassword">Geslo</label>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zapri</button>
+                                <a href="/admin" class="btn btn-primary">Logiraj se</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!-- KONEC -->
 </div>
