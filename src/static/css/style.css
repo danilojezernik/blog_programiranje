@@ -12,3 +12,7 @@ font-family: 'Oswald', sans-serif;
 .modal-footer {
     border-top: 0;
 }
+
+        .bg-dark-white {
+background: radial-gradient(circle at top, #ffffff , #c2c2c2)
+        }
