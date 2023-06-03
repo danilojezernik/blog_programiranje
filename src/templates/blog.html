@@ -1,41 +1,164 @@
 {% include '_header.html' %}
 
 
-
 <div class="container py-5">
 
     <div class="row g-4">
-        {% for objava in objave %}
-        <div class="col-6">
-            <div class="card shadow">
+
+        <div class="col-lg-9">
+            {% for objava in objave %}
+            <div class="card shadow mb-3">
                 <div class="card-body">
                     <h3 class="card-title">{{ objava.naslov }}</h3>
                     <p class="card-text">{{ objava.opis }}</p>
                     <p class="card-text"><small class="text-muted">{{ objava.kategorije }}</small></p>
-                    <a href="blog/{{ objava._id }}" class="btn btn-primary btn-sm">Small button</a>
+                    <a href="blog/{{ objava._id }}" class="btn btn-success btn-sm">Small button</a>
                 </div>
                 <div class="card-footer">
                     <small class="text-muted">{{ objava.ustvarjeno.strftime("%Y-%m-%d %H:%M:%S") }}</small>
                 </div>
             </div>
+            {% endfor %}
+            <ul class="pagination justify-content-center">
+                <li class="page-item shadow fw-bold disabled">
+                    <a class="page-link text-success">Nazaj</a>
+                </li>
+                <li class="page-item shadow fw-bold"><a class="page-link text-success" href="#">1</a></li>
+                <li class="page-item shadow fw-bold"><a class="page-link text-success" href="#">2</a></li>
+                <li class="page-item shadow fw-bold"><a class="page-link text-success" href="#">3</a></li>
+                <li class="page-item shadow fw-bold">
+                    <a class="page-link text-success" href="#">Naprej</a>
+                </li>
+            </ul>
         </div>
-        {% endfor %}
+
+        <div class="col-lg-3">
+
+            <div class="card bg-dark text-white shadow mb-3">
+                <div class="card-body text-uppercase">
+                    <h3 class="card-title text-center fs-6"># kategorije</h3>
+
+                    <p class="card-text">
+                        <small>python</small>
+                        <span class="badge p-1 bg-success">
+                            4
+                        </span>
+                    </p>
+                    <p class="card-text">
+                        <small>javascript</small>
+                        <span class="badge p-1 bg-success">
+                            8
+                        </span>
+                    </p>
+                    <p class="card-text">
+                        <small>backend</small>
+                        <span class="badge p-1 bg-success">
+                            2
+                        </span>
+                    </p>
+                    <p class="card-text">
+                        <small>frontend</small>
+                        <span class="badge p-1 bg-success">
+                            3
+                        </span>
+                    </p>
+                    <p class="card-text">
+                        <small>fullstack</small>
+                        <span class="badge p-1 bg-success">
+                            1
+                        </span>
+                    </p>
+
+                </div>
+            </div>
+
+            <div class="card shadow mb-3">
+                <div class="card-body ">
+                    <h3 class="card-title text-uppercase text-center fs-6">Naključne objave</h3>
+
+                    <div class="card border-0">
+                        <div class="row g-0">
+                            <div class="col">
+                                <div class="card-body ">
+                                    <h6 class="card-title">Java Script</h6>
+                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-0">
+                        <div class="row g-0">
+                            <div class="col">
+                                <div class="card-body ">
+                                    <h6 class="card-title">Java Script</h6>
+                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card shadow mb-3">
+                <div class="card-body text-uppercase">
+                    <h3 class="card-title text-center fs-6"># TAGI</h3>
+
+                    <div class="card border-0 mb-3">
+                        <div class="card-body">
+                            <span class="badge bg-dark me-1">#vuejs</span>
+                            <span class="badge bg-dark me-1">#express</span>
+                            <span class="badge bg-dark me-1">#nodejs</span>
+                            <span class="badge bg-dark me-1">#javascript</span>
+                            <span class="badge bg-dark me-1">#python</span>
+                            <span class="badge bg-dark me-1">#pymongo</span>
+                            <span class="badge bg-dark me-1">#mongodb</span>
+                            <span class="badge bg-dark me-1">#threejs</span>
+                            <span class="badge bg-dark me-1">#css</span>
+                            <span class="badge bg-dark me-1">#cheetsheat</span>
+                            <span class="badge bg-dark me-1">#flask</span>
+                            <span class="badge bg-dark me-1">#django</span>
+                            <span class="badge bg-dark me-1">#postman</span>
+                            <span class="badge bg-dark me-1">#kotlin</span>
+                            <span class="badge bg-dark me-1">#java</span>
+                            <span class="badge bg-dark me-1">#figma</span>
+                            <span class="badge bg-dark me-1">#API</span>
+                            <span class="badge bg-dark me-1">#backend</span>
+                            <span class="badge bg-dark me-1">#frontend</span>
+                            <span class="badge bg-dark me-1">#github</span>
+                            <span class="badge bg-dark me-1">#git</span>
+                            <span class="badge bg-dark me-1">#bash</span>
+                            <span class="badge bg-dark me-1">#design</span>
+                            <span class="badge bg-dark me-1">#database</span>
+                            <span class="badge bg-dark me-1">#sequelize</span>
+                            <span class="badge bg-dark me-1">#sequelizecli</span>
+                            <span class="badge bg-dark me-1">#webstorm</span>
+                            <span class="badge bg-dark me-1">#pycharm</span>
+                            <span class="badge bg-dark me-1">#programming</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
     </div>
 
 
-
 </div>
-<div class="container bg-white shadow">
-        <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-                <a class="page-link">Nazaj</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Naprej</a>
-            </li>
-        </ul>
+<div class="container">
+    <ul class="pagination justify-content-center">
+        <li class="page-item shadow disabled">
+            <a class="page-link text-success">Nazaj</a>
+        </li>
+        <li class="page-item shadow"><a class="page-link text-success" href="#">1</a></li>
+        <li class="page-item shadow"><a class="page-link text-success" href="#">2</a></li>
+        <li class="page-item shadow"><a class="page-link text-success" href="#">3</a></li>
+        <li class="page-item shadow">
+            <a class="page-link text-success" href="#">Naprej</a>
+        </li>
+    </ul>
 </div>
 {% include '_footer.html' %}

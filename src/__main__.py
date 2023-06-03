@@ -37,6 +37,11 @@ def get_kontakt():
     return render_template('kontakt.html')
 
 
+@app.route("/login")
+def get_login():
+    return render_template('login.html')
+
+
 @app.route("/admin")
 def get_admin():
     return render_template('admin.html')
