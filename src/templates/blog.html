@@ -8,14 +8,30 @@
         <div class="col-lg-9">
             {% for objava in objave %}
             <div class="card bg-dark-white shadow mb-3">
-                <div class="card-body">
-                    <h3 class="card-title">{{ objava.naslov }}</h3>
-                    <p class="card-text">{{ objava.opis }}</p>
-                    <p class="card-text"><small class="text-muted">Tagi: <span class="badge bg-dark me-1">{{ objava.kategorije }}</span></small></p>
-                    <a href="blog/{{ objava._id }}" class="btn btn-success btn-sm">Small button</a>
-                </div>
-                <div class="card-footer">
-                    <small class="text-muted">{{ objava.ustvarjeno.strftime("%Y-%m-%d %H:%M:%S") }}</small>
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{objava.slika}}" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+
+                            <h3 class="card-title">{{ objava.naslov }}</h3>
+                            <small class="text-muted">{{ objava.ustvarjeno.strftime("%Y-%m-%d %H:%M:%S") }}</small>
+
+                            <p class="card-text">{{ objava.opis }}</p>
+                            <p class="card-text">
+                                <small class="text-muted">Tagi:
+                                    {% for tagi in objava.kategorije %}
+                                    <span class="badge bg-dark me-1">
+                                        {{ tagi }}
+                                    </span>
+                                    {% endfor %}
+                                </small>
+                            </p>
+                            <a href="blog/{{ objava._id }}" class="btn btn-success btn-sm">Small button</a>
+                        </div>
+
+                    </div>
                 </div>
             </div>
             {% endfor %}
@@ -23,9 +39,12 @@
                 <li class="page-item shadow fw-bold disabled">
                     <a class="page-link bg-light text-success">Nazaj</a>
                 </li>
-                <li class="page-item shadow fw-bold"><a class="page-link bg-light text-success" href="#">1</a></li>
-                <li class="page-item shadow fw-bold"><a class="page-link bg-light text-success" href="#">2</a></li>
-                <li class="page-item shadow fw-bold"><a class="page-link bg-light text-success" href="#">3</a></li>
+                <li class="page-item shadow fw-bold"><a class="page-link bg-light text-success" href="#">1</a>
+                </li>
+                <li class="page-item shadow fw-bold"><a class="page-link bg-light text-success" href="#">2</a>
+                </li>
+                <li class="page-item shadow fw-bold"><a class="page-link bg-light text-success" href="#">3</a>
+                </li>
                 <li class="page-item shadow fw-bold">
                     <a class="page-link bg-light text-success" href="#">Naprej</a>
                 </li>
@@ -81,7 +100,8 @@
                             <div class="col">
                                 <div class="card-body ">
                                     <h6 class="card-title">Java Script</h6>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                    <p class="card-text"><small class="text-muted">Last updated 3 mins
+                                        ago</small></p>
                                 </div>
                             </div>
                         </div>
@@ -91,7 +111,8 @@
                             <div class="col">
                                 <div class="card-body ">
                                     <h6 class="card-title">Java Script</h6>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                    <p class="card-text"><small class="text-muted">Last updated 3 mins
+                                        ago</small></p>
                                 </div>
                             </div>
                         </div>
