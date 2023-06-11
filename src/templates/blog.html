@@ -16,7 +16,6 @@
                         <div class="card-body">
 
                             <h3 class="card-title">{{ objava.naslov }}</h3>
-                            <small class="text-muted">{{ objava.ustvarjeno.strftime("%Y-%m-%d %H:%M:%S") }}</small>
 
                             <p class="card-text">{{ objava.opis }}</p>
                             <p class="card-text">
@@ -28,9 +27,13 @@
                                     {% endfor %}
                                 </small>
                             </p>
-                            <a href="blog/{{ objava._id }}" class="btn btn-success btn-sm">Small button</a>
+                            <a href="blog/{{ objava._id }}" class="btn btn-success btn-sm">Beri dalje</a>
+
                         </div>
 
+                    </div>
+                    <div class="card-footer text-end">
+                        <small class="text-muted">Objavleno {{ objava.ustvarjeno }}</small>
                     </div>
                 </div>
             </div>
@@ -94,29 +97,21 @@
             <div class="card bg-dark-white shadow mb-3">
                 <div class="card-body">
                     <h3 class="card-title text-uppercase text-center fs-6">Naključne objave</h3>
+                    {% for random_objava in objave %}
+                    <div class="card bg-transparent border-0">
+                        <div class="row g-0">
+                            <div class="col">
+                                <div class="card-body ">
+                                    <h6 class="card-title">{{ random_objava.naslov }}</h6>
+                                    <p class="card-text">
+                                        <small class="text-muted">{{ random_objava.ustvarjeno }}</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
 
-                    <div class="card bg-transparent border-0">
-                        <div class="row g-0">
-                            <div class="col">
-                                <div class="card-body ">
-                                    <h6 class="card-title">Java Script</h6>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins
-                                        ago</small></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card bg-transparent border-0">
-                        <div class="row g-0">
-                            <div class="col">
-                                <div class="card-body ">
-                                    <h6 class="card-title">Java Script</h6>
-                                    <p class="card-text"><small class="text-muted">Last updated 3 mins
-                                        ago</small></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
             </div>
