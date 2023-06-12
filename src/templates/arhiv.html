@@ -12,7 +12,7 @@
                         <h5 class="card-title  text-success"><b>{{ objava.naslov }}</b></h5>
                         <p class="card-text">{{ objava.opis }}</p>
                     </div>
-                    <div class="card-header border-top text-secondary">Objavleno: <i>{{ objava.ustvarjeno }}</i>
+                    <div class="card-header border-top text-secondary">Objavleno: <i>{{ objava.ustvarjeno.strftime("%d/%m/%Y - %H:%M:%S") }}</i>
                     </div>
                 </div>
             </a>

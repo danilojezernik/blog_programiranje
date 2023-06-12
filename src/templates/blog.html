@@ -9,7 +9,8 @@
             {% for objava in objave %}
             <div class="card bg-dark-white shadow mb-3">
                 <div class="row g-0">
-                    <div class="col-md-3" style="background-image: url({{ url_for('static', filename='blog/' ~ objava.image_filename) }}); background-size: contain;">
+                    <div class="col-md-3"
+                         style="background-image: url({{ url_for('static', filename='blog/' ~ objava.image_filename) }}); background-size: contain;">
                     </div>
                     <div class="col-md-9">
                         <div class="card-body">
@@ -27,7 +28,6 @@
                                 </small>
                             </p>
                             <a href="blog/{{ objava._id }}" class="btn btn-success btn-sm">Beri dalje</a>
-
                         </div>
 
                     </div>
@@ -96,14 +96,14 @@
             <div class="card bg-dark-white shadow mb-3">
                 <div class="card-body">
                     <h3 class="card-title text-uppercase text-center fs-6">Naključne objave</h3>
-                    {% for random_objava in objave %}
+                    {% for random_post in objave %}
                     <div class="card bg-transparent border-0">
                         <div class="row g-0">
                             <div class="col">
                                 <div class="card-body">
-                                    <h6 class="card-title">{{ random_objava.naslov }}</h6>
+                                    <h6 class="card-title">{{ random_post.naslov }}</h6>
                                     <p class="card-text">
-                                        <small class="text-muted">{{ random_objava.ustvarjeno }}</small>
+                                        <small class="text-muted">{{ random_post.ustvarjeno }}</small>
                                     </p>
                                 </div>
                             </div>

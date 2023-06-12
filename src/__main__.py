@@ -1,24 +1,28 @@
 import os
 
 from bson import ObjectId
-from flask import Flask, render_template, request, redirect, flash
+from flask import Flask, render_template, request, redirect, flash, url_for
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
+
+from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
+
 import datetime
 
 from werkzeug.utils import secure_filename
 
-from src import db
-
-UPLOAD_FOLDER = 'static/blog'
-ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif']
+from src import db, env
 
 
 def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in env.ALLOWED_EXTENSIONS
 
 
 app = Flask(__name__)
 
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['UPLOAD_FOLDER'] = env.UPLOAD_FOLDER
+app.config['SECRET_KEY'] = env.SECRET_KEY
 
 
 @app.route("/")
@@ -43,6 +47,12 @@ def get_blog_id(_id):
     return render_template('blog_id.html', objava=post)
 
 
+@app.route('/blog/delete/<_id>')
+def delete_blog(_id):
+    db.this.objave.delete_one({'_id': ObjectId(_id)})
+    return redirect(url_for('get_admin'))
+
+
 @app.route("/arhiv")
 def get_arhiv():
     return render_template('arhiv.html', arhiv_objave=db.this.objave.find())
@@ -55,6 +65,8 @@ def get_login():
 
 @app.route("/admin", methods=['GET', 'POST'])
 def get_admin():
+    objave = db.this.objave.find()
+
     if request.method == 'POST':
         vsebina = request.form['vsebina']
         opis = request.form['opis']
@@ -82,13 +94,13 @@ def get_admin():
                 'opis': opis,
                 'podnaslov': podnaslov,
                 'naslov': naslov,
-                'ustvarjeno': ustvarjeno.strftime("%Y-%m-%d %H:%M:%S"),
+                'ustvarjeno': ustvarjeno,
                 'image_filename': filename
             }
         ).inserted_id
         return redirect('/blog/{}'.format(inserted_id))
 
-    return render_template('admin.html')
+    return render_template('admin.html', objave=objave)
 
 
 @app.errorhandler(404)

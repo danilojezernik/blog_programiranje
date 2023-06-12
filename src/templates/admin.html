@@ -15,7 +15,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">Opis</label>
-            <input type="text" class="form-control" name="opis" maxlength="100">
+            <input type="text" class="form-control" name="opis" maxlength="70">
         </div>
         <div class="mb-3">
             <label class="form-label">Vsebina</label>
@@ -27,5 +27,34 @@
         <button type="submit" class="btn btn-primary" value="POST">Objavi</button>
     </form>
 </div>
+
+<h1 class="my-5 text-center">Vsi članki</h1>
+<div class="container bg-dark-white shadow my-5 p-3">
+
+
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        {% for objava in objave %}
+        <div class="col">
+            <div class="card border-dark h-100">
+
+                <div class="card-body text-dark">
+                    <h5 class="card-title  text-success"><b>{{ objava.naslov }}</b></h5>
+                    <p class="card-text">{{ objava.opis }}</p>
+                    <p><small>Objavleno: <i>{{ objava.ustvarjeno.strftime("%d/%m/%Y - %H:%M:%S") }}</i></small></p>
+                </div>
+
+                <div class="d-grid d-md-flex justify-content-md-end">
+                <a href="blog/{{ objava._id }}" class="btn btn-success rounded-0">Beri</a>
+                <a href="blog/{{ objava._id }}" class="btn btn-warning rounded-0">Popravi</a>
+                <a href="blog/delete/{{ objava._id }}" class="btn btn-danger rounded-0">Izbriši</a>
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
 
 {% include '_footer.html' %}
