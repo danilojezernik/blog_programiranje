@@ -9,10 +9,9 @@
             {% for objava in objave %}
             <div class="card bg-dark-white shadow mb-3">
                 <div class="row g-0">
-                    <div class="col-md-4">
-                        <img src="{{objava.slika}}" class="img-fluid rounded-start" alt="...">
+                    <div class="col-md-3" style="background-image: url({{ url_for('static', filename='blog/' ~ objava.image_filename) }}); background-size: contain;">
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-9">
                         <div class="card-body">
 
                             <h3 class="card-title">{{ objava.naslov }}</h3>
@@ -101,7 +100,7 @@
                     <div class="card bg-transparent border-0">
                         <div class="row g-0">
                             <div class="col">
-                                <div class="card-body ">
+                                <div class="card-body">
                                     <h6 class="card-title">{{ random_objava.naslov }}</h6>
                                     <p class="card-text">
                                         <small class="text-muted">{{ random_objava.ustvarjeno }}</small>
@@ -164,4 +163,5 @@
 
 
 </div>
+
 {% include '_footer.html' %}

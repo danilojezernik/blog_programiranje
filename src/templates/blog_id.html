@@ -1,11 +1,11 @@
 {% include '_header.html' %}
 <div class="container bg-dark-white py-5">
     <h1>{{ objava.naslov }}</h1>
-    <img src="{{ url_for('static', filename='uploads/' ~ objava.image_filename) }}" alt="Blog Image">
+    <img src="{{ url_for('static', filename='blog/' ~ objava.image_filename) }}" alt="Blog Image">
     <h2>{{ objava.podnaslov }}</h2>
     <p class="lead">{{ objava.opis }}</p>
     <p>{{ objava.vsebina }}</p>
-    <p>{{ objava.ustvarjeno.strftime("%Y-%m-%d %H:%M:%S") }}</p>
+    <p>{{ objava.ustvarjeno }}</p>
 
     <button onclick="history.back()" class="btn btn-primary btn-sm">Nazaj</button>
 </div>

@@ -8,7 +8,7 @@ from werkzeug.utils import secure_filename
 
 from src import db
 
-UPLOAD_FOLDER = 'static/uploads'
+UPLOAD_FOLDER = 'static/blog'
 ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif']
 
 
@@ -97,6 +97,6 @@ def not_found(error):
 
 
 if __name__ == '__main__':
-    # db.drop()
-    # db.seed()
+    db.drop()
+    db.seed()
     app.run(host='0.0.0.0', port='8001', debug=True)

@@ -6,13 +6,13 @@
         {% for objava in arhiv_objave %}
         <div class="col">
             <a href="/blog/{{objava._id}}" class="text-decoration-none">
-                <div class="card border-dark">
+                <div class="card border-dark h-100">
 
                     <div class="card-body text-dark">
                         <h5 class="card-title  text-success"><b>{{ objava.naslov }}</b></h5>
                         <p class="card-text">{{ objava.opis }}</p>
                     </div>
-                    <div class="card-header border-top text-secondary">Objavleno: <i>{{ objava.ustvarjeno.strftime("%Y-%m-%d %H:%M:%S") }}</i>
+                    <div class="card-header border-top text-secondary">Objavleno: <i>{{ objava.ustvarjeno }}</i>
                     </div>
                 </div>
             </a>

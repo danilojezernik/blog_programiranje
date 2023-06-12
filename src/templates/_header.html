@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.tiny.cloud/1/1ny43ox7c22l2d24gruq029t9x8848uf8a3by7djzv17lur4/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>Blog o programiranju</title>
+
     <style>
         .bg {
         background-image: url({{ url_for ('static', filename = './bg/background-main.png') }});
@@ -15,7 +17,7 @@
         }
 
         .shadow-random {
-        box-shadow: 0px 28px 18px 0px rgba(0,0,0,0.1);}
+        box-shadow: 0px 28px 18px 0px rgba(0,0,0,0.1)
         }
 
         .sticky-top {
@@ -24,6 +26,7 @@
         top: 0;
         z-index: 1020;
         }
+
 
     </style>
 </head>
