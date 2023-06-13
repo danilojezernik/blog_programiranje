@@ -55,11 +55,11 @@ objave = [
 def count_tagi(objave):
     tagi = {}
     for objava in objave:
-        for k in objava['tagi']:
-            if k in tagi:
-                tagi[k] += 1
+        for t in objava['tagi']:
+            if t in tagi:
+                tagi[t] += 1
             else:
-                tagi[k] = 1
+                tagi[t] = 1
     return tagi
 
 
@@ -70,12 +70,14 @@ def is_admin(ime, geslo):
 def count_kategorije(objave):
     kategorije = {}
     for objava in objave:
-        for k in objava['kategorije']:
-            if k in kategorije:
-                kategorije[k] += 1
-            else:
-                kategorije[k] = 1
+        if 'kategorije' in objava:  # Check if 'kategorije' key is present
+            for k in objava['kategorije']:
+                if k in kategorije:
+                    kategorije[k] += 1
+                else:
+                    kategorije[k] = 1
     return kategorije
+
 
 
 def drop():

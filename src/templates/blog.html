@@ -62,7 +62,11 @@
 
                     {% for kategorija in kategorije %}
                     <p class="card-text">
-                        <small><a href="/blog/kategorije/{{kategorija}}">{{ kategorija }}</a></small>
+                        <small>
+                            <a href="/blog/kategorije/{{kategorija}}" class="text-decoration-none text-white">
+                                {{ kategorija }}
+                            </a>
+                        </small>
                         <span class="badge p-1 bg-success">
                             {{ kategorije[kategorija] }}
                         </span>
@@ -100,7 +104,11 @@
                     <div class="card bg-transparent border-0 mb-3">
                         <div class="card-body">
                             {% for tag in tagi %}
-                            <span class="badge bg-dark me-1"><a href="/blog/tagi/{{tag}}">#{{ tag }}</a></span>
+                            <span class="badge bg-dark me-1">
+                                <a href="/blog/tagi/{{tag}}" class="text-decoration-none text-white">
+                                    #{{ tag }}
+                                </a>
+                            </span>
                             {% endfor %}
                         </div>
                     </div>

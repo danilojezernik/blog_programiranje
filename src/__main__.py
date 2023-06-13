@@ -108,6 +108,7 @@ def edit_blog(_id):
         podnaslov = request.form['podnaslov']
         naslov = request.form['naslov']
         tag = request.form['tagi']
+        ustvarjeno = datetime.datetime.now()
         kategorije = request.form['kategorije']
 
         db.this.objave.update_one(
@@ -119,6 +120,7 @@ def edit_blog(_id):
                     'podnaslov': podnaslov,
                     'naslov': naslov,
                     'tagi': tag,
+                    'ustvarjeno': ustvarjeno,
                     'kategorije': kategorije
                 }
             }
@@ -168,6 +170,8 @@ def get_admin():
         opis = request.form['opis']
         podnaslov = request.form['podnaslov']
         naslov = request.form['naslov']
+        tag = request.form['tagi']
+        kategorije = request.form['kategorije']
         ustvarjeno = datetime.datetime.now()
 
         if 'image' in request.files:
@@ -189,8 +193,10 @@ def get_admin():
                 'opis': opis,
                 'podnaslov': podnaslov,
                 'naslov': naslov,
+                'image_filename': filename,
+                'tagi': tag,
                 'ustvarjeno': ustvarjeno,
-                'image_filename': filename
+                'kategorije': kategorije
             }
         ).inserted_id
 
