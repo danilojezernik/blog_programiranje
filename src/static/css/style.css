@@ -16,3 +16,12 @@
 .bg-dark-white {
     background: radial-gradient(circle at top, #ffffff, #d1d1d1)
 }
+
+.nav-pills .nav-link.active {
+    color: #ffffff;
+    background-color: #198754;
+}
+
+.nav-link {
+    color: #000000;
+}

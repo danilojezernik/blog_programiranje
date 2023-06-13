@@ -41,16 +41,47 @@ def get_blog():
     return render_template('blog.html', objave=objave)
 
 
+# FIND ONE Blog by ID
 @app.route("/blog/<_id>", methods=['GET', 'POST'])
 def get_blog_id(_id):
     post = db.this.objave.find_one({'_id': ObjectId(_id)})
     return render_template('blog_id.html', objava=post)
 
 
+# DELETE Blog post by ID
 @app.route('/blog/delete/<_id>')
 def delete_blog(_id):
     db.this.objave.delete_one({'_id': ObjectId(_id)})
     return redirect(url_for('get_admin'))
+
+
+# EDIT Blog post by ID
+@app.route('/blog/edit/<_id>', methods=['GET', 'POST'])
+def edit_blog(_id):
+    post = db.this.objave.find_one({'_id': ObjectId(_id)})
+
+    if request.method == 'POST':
+        vsebina = request.form['vsebina']
+        opis = request.form['opis']
+        podnaslov = request.form['podnaslov']
+        naslov = request.form['naslov']
+
+        db.this.objave.update_one(
+            {'_id': ObjectId(_id)},
+            {
+                '$set': {
+                    'vsebina': vsebina,
+                    'opis': opis,
+                    'podnaslov': podnaslov,
+                    'naslov': naslov
+                }
+            }
+        )
+
+        flash('Blog post updated successfully')
+        return redirect(url_for('get_blog_id', _id=_id))
+
+    return render_template('edit_blog.html', objava=post)
 
 
 @app.route("/arhiv")
@@ -87,7 +118,6 @@ def get_admin():
                 filename = None
         else:
             filename = None
-
         inserted_id = db.this.objave.insert_one(
             {
                 'vsebina': vsebina,
@@ -98,6 +128,7 @@ def get_admin():
                 'image_filename': filename
             }
         ).inserted_id
+
         return redirect('/blog/{}'.format(inserted_id))
 
     return render_template('admin.html', objave=objave)
