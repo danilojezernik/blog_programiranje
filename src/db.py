@@ -11,34 +11,71 @@ this = client[env.DB_NAME]
 
 objave = [
     asdict(Objava(naslov='Python', podnaslov='Zakaj Python', kategorije=['programiranje', 'python'],
-                  opis='Python je danes eden izmed najbolj razširjenimi programskimi jeziki',
+                  tagi=['javascript', 'pisanje'],
+                  opis='Python je danes eden izmed najbolj srazširjenimi programskimi jeziki',
                   vsebina='Že vrsto let je python znan kot programski jezik, ki se najbolj uporablja pri programiranju',
                   ustvarjeno=datetime.datetime.now())),
     asdict(Objava(naslov='JavaScript', podnaslov='Zakaj JavaScript', kategorije=['programiranje', 'javascript'],
+                  tagi=['javascript', 'pisanje'],
                   opis='Python je danes eden izmed najbolj razširjenimi programskimi jeziki',
                   vsebina='Že vrsto let je JavaScript znan kot programski jezik, ki se najbolj uporablja pri programiranju',
                   ustvarjeno=datetime.datetime.now())),
     asdict(Objava(naslov='Kotlin', podnaslov='Zakaj Kotlin', kategorije=['programiranje', 'kotlin'],
+                  tagi=['python', 'pisanje'],
                   opis='Python je danes eden izmed najbolj razširjenimi programskimi jeziki',
                   vsebina='Že vrsto let je Kotlin znan kot programski jezik, ki se najbolj uporablja pri programiranju',
                   ustvarjeno=datetime.datetime.now())),
-    asdict(Objava(naslov='Kotlin 2', podnaslov='Zakaj Kotlin', kategorije=['programiranje', 'kotlin'],
-                  opis='Python je danes eden izmed najbolj razširjenimi programskimi jeziki',
-                  vsebina='Že vrsto let je Kotlin znan kot programski jezik, ki se najbolj uporablja pri programiranju',
-                  ustvarjeno=datetime.datetime.now())),
-    asdict(Objava(naslov='Kotlin 3', podnaslov='Zakaj Kotlin', kategorije=['programiranje', 'kotlin'],
-                  opis='Python je danes eden izmed najbolj razširjenimi programskimi jeziki',
-                  vsebina='Že vrsto let je Kotlin znan kot programski jezik, ki se najbolj uporablja pri programiranju',
-                  ustvarjeno=datetime.datetime.now())),
-    asdict(Objava(naslov='Kotlin 4', podnaslov='Zakaj Kotlin', kategorije=['programiranje', 'kotlin'],
-                  opis='Python je danes eden izmed najbolj razširjenimi programskimi jeziki',
-                  vsebina='Že vrsto let je Kotlin znan kot programski jezik, ki se najbolj uporablja pri programiranju',
-                  ustvarjeno=datetime.datetime.now())),
-    asdict(Objava(naslov='Kotlin 5', podnaslov='Zakaj Kotlin', kategorije=['programiranje', 'kotlin'],
-                  opis='Python je danes eden izmed najbolj razširjenimi programskimi jeziki',
-                  vsebina='Že vrsto let je Kotlin znan kot programski jezik, ki se najbolj uporablja pri programiranju',
-                  ustvarjeno=datetime.datetime.now()))
+    asdict(
+        Objava(naslov='Kotlin 2', podnaslov='Zakaj Kotlin', kategorije=['programiranje', 'kotlin'],
+               tagi=['javascript', 'pisanje'],
+               opis='Python je danes eden izmed najbolj razširjenimi programskimi jeziki',
+               vsebina='Že vrsto let je Kotlin znan kot programski jezik, ki se najbolj uporablja pri programiranju',
+               ustvarjeno=datetime.datetime.now())),
+    asdict(
+        Objava(naslov='Kotlin 3', podnaslov='Zakaj Kotlin', kategorije=['programiranje', 'kotlin'],
+               tagi=['java', 'pisanje'],
+               opis='Python je danes eden izmed najbolj razširjenimi programskimi jeziki',
+               vsebina='Že vrsto let je Kotlin znan kot programski jezik, ki se najbolj uporablja pri programiranju',
+               ustvarjeno=datetime.datetime.now())),
+    asdict(
+        Objava(naslov='Kotlin 4', podnaslov='Zakaj Kotlin', kategorije=['programiranje', 'kotlin'],
+               tagi=['javascript', 'pisanje'],
+               opis='Python je danes eden izmed najbolj razširjenimi programskimi jeziki',
+               vsebina='Že vrsto let je Kotlin znan kot programski jezik, ki se najbolj uporablja pri programiranju',
+               ustvarjeno=datetime.datetime.now())),
+    asdict(
+        Objava(naslov='Kotlin 5', podnaslov='Zakaj Kotlin', kategorije=['programiranje', 'kotlin'],
+               tagi=['javascript', 'pisanje'],
+               opis='Python je danes eden izmed najbolj razširjenimi programskimi jeziki',
+               vsebina='Že vrsto let je Kotlin znan kot programski jezik, ki se najbolj uporablja pri programiranju',
+               ustvarjeno=datetime.datetime.now()))
 ]
+
+
+def count_tagi(objave):
+    tagi = {}
+    for objava in objave:
+        for k in objava['tagi']:
+            if k in tagi:
+                tagi[k] += 1
+            else:
+                tagi[k] = 1
+    return tagi
+
+
+def is_admin(ime, geslo):
+    return ime == env.UPORABNISKO_IME and geslo == env.GESLO
+
+
+def count_kategorije(objave):
+    kategorije = {}
+    for objava in objave:
+        for k in objava['kategorije']:
+            if k in kategorije:
+                kategorije[k] += 1
+            else:
+                kategorije[k] = 1
+    return kategorije
 
 
 def drop():

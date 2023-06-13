@@ -1,5 +1,6 @@
 import os
 
+import flask
 from bson import ObjectId
 from flask import Flask, render_template, request, redirect, flash, url_for
 from flask_wtf import FlaskForm
@@ -13,6 +14,7 @@ import datetime
 from werkzeug.utils import secure_filename
 
 from src import db, env
+from src.db import count_kategorije, count_tagi, is_admin
 
 
 def allowed_file(filename):
@@ -21,8 +23,8 @@ def allowed_file(filename):
 
 app = Flask(__name__)
 
+app.secret_key = env.SECRET_KEY
 app.config['UPLOAD_FOLDER'] = env.UPLOAD_FOLDER
-app.config['SECRET_KEY'] = env.SECRET_KEY
 
 
 @app.route("/")
@@ -37,8 +39,8 @@ def get_avtor():
 
 @app.route("/blog")
 def get_blog():
-    objave = db.this.objave.find()
-    return render_template('blog.html', objave=objave)
+    objave = list(db.this.objave.find())
+    return render_template('blog.html', objave=objave, kategorije=count_kategorije(objave), tagi=count_tagi(objave))
 
 
 # FIND ONE Blog by ID
@@ -46,6 +48,41 @@ def get_blog():
 def get_blog_id(_id):
     post = db.this.objave.find_one({'_id': ObjectId(_id)})
     return render_template('blog_id.html', objava=post)
+
+
+@app.route('/search', methods=['POST'])
+def search():
+    search = request.form['search']
+    najdene = []
+    objave = list(db.this.objave.find())
+    for o in objave:
+        for key in o:
+            if key in ['_id', 'ustvarjeno']:
+                continue
+            if search in o[key]:
+                najdene.append(o)
+                break
+    return render_template("blog.html", objave=najdene, kategorije=count_kategorije(objave), tagi=count_tagi(objave))
+
+
+@app.route("/blog/kategorije/<kategorija>", methods=['GET'])
+def get_blog_kategorija(kategorija):
+    objave = list(db.this.objave.find())
+    najdene = []
+    for o in objave:
+        if kategorija in o['kategorije']:
+            najdene.append(o)
+    return render_template('blog.html', objave=najdene, kategorije=count_kategorije(objave), tagi=count_tagi(objave))
+
+
+@app.route("/blog/tagi/<tag>", methods=['GET'])
+def get_blog_tag(tag):
+    objave = list(db.this.objave.find())
+    najdene = []
+    for o in objave:
+        if tag in o['tagi']:
+            najdene.append(o)
+    return render_template('blog.html', objave=najdene, kategorije=count_kategorije(objave), tagi=count_tagi(objave))
 
 
 # DELETE Blog post by ID
@@ -58,13 +95,20 @@ def delete_blog(_id):
 # EDIT Blog post by ID
 @app.route('/blog/edit/<_id>', methods=['GET', 'POST'])
 def edit_blog(_id):
-    post = db.this.objave.find_one({'_id': ObjectId(_id)})
+    ime = flask.session.get('ime', None)
+    geslo = flask.session.get('geslo', None)
 
+    if not is_admin(ime, geslo):
+        return get_login()
+
+    post = db.this.objave.find_one({'_id': ObjectId(_id)})
     if request.method == 'POST':
         vsebina = request.form['vsebina']
         opis = request.form['opis']
         podnaslov = request.form['podnaslov']
         naslov = request.form['naslov']
+        tag = request.form['tagi']
+        kategorije = request.form['kategorije']
 
         db.this.objave.update_one(
             {'_id': ObjectId(_id)},
@@ -73,7 +117,9 @@ def edit_blog(_id):
                     'vsebina': vsebina,
                     'opis': opis,
                     'podnaslov': podnaslov,
-                    'naslov': naslov
+                    'naslov': naslov,
+                    'tagi': tag,
+                    'kategorije': kategorije
                 }
             }
         )
@@ -89,6 +135,19 @@ def get_arhiv():
     return render_template('arhiv.html', arhiv_objave=db.this.objave.find())
 
 
+@app.route("/login", methods=['POST'])
+def post_login():
+    ime = request.form['ime'].strip()
+    geslo = request.form['geslo'].strip()
+    if not is_admin(ime, geslo):
+        return get_login()
+
+    flask.session['ime'] = ime
+    flask.session['geslo'] = geslo
+
+    return redirect('/admin')
+
+
 @app.route("/login")
 def get_login():
     return render_template('login.html')
@@ -96,6 +155,12 @@ def get_login():
 
 @app.route("/admin", methods=['GET', 'POST'])
 def get_admin():
+    ime = flask.session.get('ime', None)
+    geslo = flask.session.get('geslo', None)
+
+    if not is_admin(ime, geslo):
+        return get_login()
+
     objave = db.this.objave.find()
 
     if request.method == 'POST':
@@ -142,4 +207,4 @@ def not_found(error):
 if __name__ == '__main__':
     db.drop()
     db.seed()
-    app.run(host='0.0.0.0', port='8001', debug=True)
+    app.run(host='0.0.0.0', port=8001, debug=True)

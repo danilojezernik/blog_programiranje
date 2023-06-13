@@ -20,9 +20,9 @@
                             <p class="card-text">{{ objava.opis }}</p>
                             <p class="card-text">
                                 <small class="text-muted">Tagi:
-                                    {% for tagi in objava.kategorije %}
+                                    {% for tag in objava.tagi %}
                                     <span class="badge bg-dark me-1">
-                                        {{ tagi }}
+                                        {{ tag }}
                                     </span>
                                     {% endfor %}
                                 </small>
@@ -32,7 +32,8 @@
 
                     </div>
                     <div class="card-footer text-end">
-                        <small class="text-muted">Objavleno {{ objava.ustvarjeno }}</small>
+                        <small class="text-muted">Objavleno {{ objava.ustvarjeno.strftime("%d/%m/%Y - %H:%M:%S")
+                            }}</small>
                     </div>
                 </div>
             </div>
@@ -59,37 +60,14 @@
                 <div class="card-body text-uppercase">
                     <h3 class="card-title text-center fs-6"># kategorije</h3>
 
+                    {% for kategorija in kategorije %}
                     <p class="card-text">
-                        <small>python</small>
+                        <small><a href="/blog/kategorije/{{kategorija}}">{{ kategorija }}</a></small>
                         <span class="badge p-1 bg-success">
-                            4
+                            {{ kategorije[kategorija] }}
                         </span>
                     </p>
-                    <p class="card-text">
-                        <small>javascript</small>
-                        <span class="badge p-1 bg-success">
-                            8
-                        </span>
-                    </p>
-                    <p class="card-text">
-                        <small>backend</small>
-                        <span class="badge p-1 bg-success">
-                            2
-                        </span>
-                    </p>
-                    <p class="card-text">
-                        <small>frontend</small>
-                        <span class="badge p-1 bg-success">
-                            3
-                        </span>
-                    </p>
-                    <p class="card-text">
-                        <small>fullstack</small>
-                        <span class="badge p-1 bg-success">
-                            1
-                        </span>
-                    </p>
-
+                    {% endfor %}
                 </div>
             </div>
 
@@ -121,35 +99,9 @@
 
                     <div class="card bg-transparent border-0 mb-3">
                         <div class="card-body">
-                            <span class="badge bg-dark me-1">#vuejs</span>
-                            <span class="badge bg-dark me-1">#express</span>
-                            <span class="badge bg-dark me-1">#nodejs</span>
-                            <span class="badge bg-dark me-1">#javascript</span>
-                            <span class="badge bg-dark me-1">#python</span>
-                            <span class="badge bg-dark me-1">#pymongo</span>
-                            <span class="badge bg-dark me-1">#mongodb</span>
-                            <span class="badge bg-dark me-1">#threejs</span>
-                            <span class="badge bg-dark me-1">#css</span>
-                            <span class="badge bg-dark me-1">#cheetsheat</span>
-                            <span class="badge bg-dark me-1">#flask</span>
-                            <span class="badge bg-dark me-1">#django</span>
-                            <span class="badge bg-dark me-1">#postman</span>
-                            <span class="badge bg-dark me-1">#kotlin</span>
-                            <span class="badge bg-dark me-1">#java</span>
-                            <span class="badge bg-dark me-1">#figma</span>
-                            <span class="badge bg-dark me-1">#API</span>
-                            <span class="badge bg-dark me-1">#backend</span>
-                            <span class="badge bg-dark me-1">#frontend</span>
-                            <span class="badge bg-dark me-1">#github</span>
-                            <span class="badge bg-dark me-1">#git</span>
-                            <span class="badge bg-dark me-1">#bash</span>
-                            <span class="badge bg-dark me-1">#design</span>
-                            <span class="badge bg-dark me-1">#database</span>
-                            <span class="badge bg-dark me-1">#sequelize</span>
-                            <span class="badge bg-dark me-1">#sequelizecli</span>
-                            <span class="badge bg-dark me-1">#webstorm</span>
-                            <span class="badge bg-dark me-1">#pycharm</span>
-                            <span class="badge bg-dark me-1">#programming</span>
+                            {% for tag in tagi %}
+                            <span class="badge bg-dark me-1"><a href="/blog/tagi/{{tag}}">#{{ tag }}</a></span>
+                            {% endfor %}
                         </div>
                     </div>
 

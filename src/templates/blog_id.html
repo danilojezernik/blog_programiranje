@@ -4,11 +4,9 @@
     <img src="{{ url_for('static', filename='blog/' ~ objava.image_filename) }}" alt="Blog Image">
     <h2>{{ objava.podnaslov }}</h2>
     <p class="lead">{{ objava.opis }}</p>
-    <p>{{ objava.vsebina }}</p>
-    <p>{{ objava.ustvarjeno }}</p>
-
+    <p>{{ objava.vsebina |safe }}</p>
+    <p>{{ objava.ustvarjeno.strftime("%d/%m/%Y - %H:%M:%S") }}</p>
     <button onclick="history.back()" class="btn btn-primary btn-sm">Nazaj</button>
 </div>
-
 
 {% include '_footer.html' %}
