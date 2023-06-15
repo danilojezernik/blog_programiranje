@@ -74,22 +74,42 @@ def search():
 
 @app.route("/blog/kategorije/<kategorija>", methods=['GET'])
 def get_blog_kategorija(kategorija):
-    objave = list(db.this.objave.find())
+    page = int(request.args.get('page', 1))
+    posts_per_page = 10
+
+    total_posts = db.this.objave.count_documents({})
+    total_pages = math.ceil(total_posts / posts_per_page)
+
+    start_index = (page - 1) * posts_per_page
+
+    objave = list(db.this.objave.find().sort('_id', -1).skip(start_index).limit(posts_per_page))
+
     najdene = []
     for o in objave:
         if kategorija in o['kategorije']:
             najdene.append(o)
-    return render_template('blog.html', objave=najdene, kategorije=count_kategorije(objave))
+    return render_template('blog.html', objave=najdene, kategorije=count_kategorije(objave), tagi=count_tagi(objave),
+                           page=page, total_pages=total_pages)
 
 
 @app.route("/blog/tagi/<tag>", methods=['GET'])
 def get_blog_tag(tag):
-    objave = list(db.this.objave.find())
+    page = int(request.args.get('page', 1))
+    posts_per_page = 10
+
+    total_posts = db.this.objave.count_documents({})
+    total_pages = math.ceil(total_posts / posts_per_page)
+
+    start_index = (page - 1) * posts_per_page
+
+    objave = list(db.this.objave.find().sort('_id', -1).skip(start_index).limit(posts_per_page))
+
     najdene = []
     for o in objave:
         if tag in o['tagi']:
             najdene.append(o)
-    return render_template('blog.html', objave=najdene, tagi=count_tagi(objave))
+    return render_template('blog.html', objave=najdene, tagi=count_tagi(objave), kategorije=count_kategorije(objave),
+                           page=page, total_pages=total_pages)
 
 
 # DELETE Blog post by ID
