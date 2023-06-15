@@ -1,13 +1,9 @@
+import math
 import os
 
 import flask
 from bson import ObjectId
 from flask import Flask, render_template, request, redirect, flash, url_for
-from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired
-
-from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 
 import datetime
 
@@ -39,8 +35,19 @@ def get_avtor():
 
 @app.route("/blog")
 def get_blog():
-    objave = list(db.this.objave.find())
-    return render_template('blog.html', objave=objave, kategorije=count_kategorije(objave), tagi=count_tagi(objave))
+    page = int(request.args.get('page', 1))
+    posts_per_page = 10
+
+    total_posts = db.this.objave.count_documents({})
+    total_pages = math.ceil(total_posts / posts_per_page)
+
+    start_index = (page - 1) * posts_per_page
+    end_index = start_index + posts_per_page
+
+    objave = list(db.this.objave.find().sort('_id', -1).skip(start_index).limit(posts_per_page))
+
+    return render_template('blog.html', objave=objave, kategorije=count_kategorije(objave), tagi=count_tagi(objave),
+                           page=page, total_pages=total_pages)
 
 
 # FIND ONE Blog by ID
@@ -72,7 +79,7 @@ def get_blog_kategorija(kategorija):
     for o in objave:
         if kategorija in o['kategorije']:
             najdene.append(o)
-    return render_template('blog.html', objave=najdene, kategorije=count_kategorije(objave), tagi=count_tagi(objave))
+    return render_template('blog.html', objave=najdene, kategorije=count_kategorije(objave))
 
 
 @app.route("/blog/tagi/<tag>", methods=['GET'])
@@ -82,7 +89,7 @@ def get_blog_tag(tag):
     for o in objave:
         if tag in o['tagi']:
             najdene.append(o)
-    return render_template('blog.html', objave=najdene, kategorije=count_kategorije(objave), tagi=count_tagi(objave))
+    return render_template('blog.html', objave=najdene, tagi=count_tagi(objave))
 
 
 # DELETE Blog post by ID
@@ -95,12 +102,6 @@ def delete_blog(_id):
 # EDIT Blog post by ID
 @app.route('/blog/edit/<_id>', methods=['GET', 'POST'])
 def edit_blog(_id):
-    ime = flask.session.get('ime', None)
-    geslo = flask.session.get('geslo', None)
-
-    if not is_admin(ime, geslo):
-        return get_login()
-
     post = db.this.objave.find_one({'_id': ObjectId(_id)})
     if request.method == 'POST':
         vsebina = request.form['vsebina']
@@ -111,6 +112,19 @@ def edit_blog(_id):
         ustvarjeno = datetime.datetime.now()
         kategorije = request.form['kategorije']
 
+        if 'image' in request.files:
+            image = request.files['image']
+            if image.filename != '':
+                if allowed_file(image.filename):
+                    filename = secure_filename(image.filename)
+                    image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                else:
+                    flash('Allowed image types are -> png, jpg, jpeg, gif')
+                    return redirect(request.url)
+            else:
+                filename = None
+        else:
+            filename = None
         db.this.objave.update_one(
             {'_id': ObjectId(_id)},
             {
@@ -120,13 +134,12 @@ def edit_blog(_id):
                     'podnaslov': podnaslov,
                     'naslov': naslov,
                     'tagi': tag,
+                    'image_filename': filename,
                     'ustvarjeno': ustvarjeno,
                     'kategorije': kategorije
                 }
             }
         )
-
-        flash('Blog post updated successfully')
         return redirect(url_for('get_blog_id', _id=_id))
 
     return render_template('edit_blog.html', objava=post)

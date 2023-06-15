@@ -25,3 +25,7 @@
 .nav-link {
     color: #000000;
 }
+
+.page-item.active .page-link {
+    border: 0;
+}

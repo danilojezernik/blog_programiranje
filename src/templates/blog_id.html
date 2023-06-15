@@ -1,12 +1,36 @@
 {% include '_header.html' %}
-<div class="container bg-dark-white my-5">
-    <h1>{{ objava.naslov }}</h1>
-    <img src="{{ url_for('static', filename='blog/' ~ objava.image_filename) }}" alt="Blog Image">
-    <h2>{{ objava.podnaslov }}</h2>
-    <p class="lead">{{ objava.opis }}</p>
-    <p>{{ objava.vsebina |safe }}</p>
-    <p>{{ objava.ustvarjeno.strftime("%d/%m/%Y - %H:%M:%S") }}</p>
-    <button onclick="history.back()" class="btn btn-primary btn-sm">Nazaj</button>
+
+
+<div class="container my-5">
+
+    <div class="row g-4">
+
+
+
+
+        <div class="col-lg-9 bg-dark-white shadow p-3">
+            <h1 class="text-center fw-bold">{{ objava.naslov }}</h1>
+            <div class="text-center">
+                <img src="{{ url_for('static', filename='blog/' ~ objava.image_filename) }}" class="img-fluid"
+                     style="max-width:300px;max-height:300px;background-color: transparent;" alt="{{ objava.naslov }}">
+            </div>
+            <h2>{{ objava.podnaslov }}</h2>
+            <p class="lead">{{ objava.opis }}</p>
+            <p>{{ objava.vsebina |safe }}</p>
+            <p>{{ objava.ustvarjeno }}</p>
+            <button onclick="history.back()" class="btn btn-primary btn-sm">Nazaj</button>
+        </div>
+
+
+
+
+
+
+        <div class="col-lg-3 bg-dark-white shadow p-3">
+
+        </div>
+    </div>
 </div>
+
 
 {% include '_footer.html' %}

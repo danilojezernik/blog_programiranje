@@ -70,7 +70,7 @@ def is_admin(ime, geslo):
 def count_kategorije(objave):
     kategorije = {}
     for objava in objave:
-        if 'kategorije' in objava:  # Check if 'kategorije' key is present
+        if 'kategorije' in objava:
             for k in objava['kategorije']:
                 if k in kategorije:
                     kategorije[k] += 1

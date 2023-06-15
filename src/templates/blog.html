@@ -1,18 +1,22 @@
 {% include '_header.html' %}
 
 
-<div class="container py-5">
+<div class="container bg-dark-white shadow p-3">
 
-    <div class="row g-4">
+    <div class="row">
 
         <div class="col-lg-9">
-            {% for objava in objave %}
-            <div class="card bg-dark-white shadow mb-3">
-                <div class="row g-0">
-                    <div class="col-md-3"
-                         style="background-image: url({{ url_for('static', filename='blog/' ~ objava.image_filename) }}); background-size: contain;">
-                    </div>
-                    <div class="col-md-9">
+
+
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+
+                {% for objava in objave %}
+                <div class="col">
+
+                    <div class="card bg-dark-white shadow mb-3">
+                        <img src="{{ url_for('static', filename='blog/' ~ objava.image_filename) }}"
+                             alt="{{ objava.naslov }}" class="card-img-top" style="max-height:200px;width:auto;">
+
                         <div class="card-body">
 
                             <h3 class="card-title">{{ objava.naslov }}</h3>
@@ -28,30 +32,47 @@
                                 </small>
                             </p>
                             <a href="blog/{{ objava._id }}" class="btn btn-success btn-sm">Beri dalje</a>
+
+                        </div>
+                        <div class="card-footer text-end">
+                            <small class="text-muted">Objavleno {{ objava.ustvarjeno.strftime("%d/%m/%Y - %H:%M:%S")
+                                }}</small>
                         </div>
 
                     </div>
-                    <div class="card-footer text-end">
-                        <small class="text-muted">Objavleno {{ objava.ustvarjeno.strftime("%d/%m/%Y - %H:%M:%S")
-                            }}</small>
-                    </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+
             <ul class="pagination justify-content-center">
+                {% if page > 1 %}
+                <li class="page-item shadow fw-bold">
+                    <a class="page-link bg-light text-success" href="/blog?page={{ page-1 }}">Nazaj</a>
+                </li>
+                {% else %}
                 <li class="page-item shadow fw-bold disabled">
                     <a class="page-link bg-light text-success">Nazaj</a>
                 </li>
-                <li class="page-item shadow fw-bold"><a class="page-link bg-light text-success" href="#">1</a>
+                {% endif %}
+
+                {% for p in range(1, total_pages + 1) %}
+                <li class="page-item shadow fw-bold {% if p == page %}active{% endif %}">
+                    <a class="page-link bg-light text-success" href="/blog?page={{ p }}">{{ p }}</a>
                 </li>
-                <li class="page-item shadow fw-bold"><a class="page-link bg-light text-success" href="#">2</a>
-                </li>
-                <li class="page-item shadow fw-bold"><a class="page-link bg-light text-success" href="#">3</a>
-                </li>
+                {% endfor %}
+
+                {% if page < total_pages %}
                 <li class="page-item shadow fw-bold">
-                    <a class="page-link bg-light text-success" href="#">Naprej</a>
+                    <a class="page-link bg-light text-success" href="/blog?page={{ page+1 }}">Naprej</a>
                 </li>
+                {% else %}
+                <li class="page-item shadow fw-bold disabled">
+                    <a class="page-link bg-light text-success">Naprej</a>
+                </li>
+                {% endif %}
             </ul>
+
+
         </div>
 
         <div class="col-lg-3">
