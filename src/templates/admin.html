@@ -1,12 +1,13 @@
 {% include '_header.html' %}
 
-<h1 class="my-5 text-center">ADMIN DASHBOARD</h1>
-<div class="container p-0 bg-dark-white shadow my-5">
 
-    <div class="d-md-flex align-items-start">
-        <div class="nav flex-column nav-pills" style="min-width:150px;" id="v-pills-tab" role="tablist"
+<div class="container p-0 bg-dark-white shadow">
+<h1 class="text-center py-5"><strong>ADMIN DASHBOARD</strong></h1>
+
+    <div class="d-md-flex p-0 align-items-start">
+        <div class="nav flex-column nav-pills " style="min-width:150px;" id="v-pills-tab" role="tablist"
              aria-orientation="vertical">
-            <button class="nav-link  rounded-0 active" id="v-pills-home-tab" data-bs-toggle="pill"
+            <button class="nav-link rounded-0 active" id="v-pills-home-tab" data-bs-toggle="pill"
                     data-bs-target="#v-pills-home"
                     type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Objavi
             </button>
@@ -23,7 +24,7 @@
                     type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Nastavitve
             </button>
         </div>
-        <div class="tab-content border-start border-white p-2 p-md-5" id="v-pills-tabContent">
+        <div class="tab-content p-2 p-md-5" id="v-pills-tabContent">
 
             <!-- OBJAVI -->
             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
@@ -61,7 +62,7 @@
                         <input type="file" class="form-control" name="image">
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button type="submit" class="btn btn-success" value="POST">Objavi</button>
+                    <button type="submit" class="btn btn-dark" value="POST">Objavi</button>
                     </div>
                 </form>
             </div>
@@ -71,7 +72,7 @@
                 <div class="row row-cols-1 row-cols-md-4 g-4">
                     {% for objava in objave %}
                     <div class="col">
-                        <div class="card border-dark h-100">
+                        <div class="card border-dark rounded-0 h-100">
 
                             <div class="card-body text-dark">
                                 <h5 class="card-title  text-success"><b>{{ objava.naslov }}</b></h5>
@@ -83,11 +84,11 @@
 
                             <div class="d-flex bd-highlight">
                                 <a href="blog/{{ objava._id }}"
-                                   class="btn btn-success rounded-0 flex-fill bd-highlight">Beri</a>
+                                   class="btn btn-dark rounded-0 border-0 flex-fill bd-highlight">Beri</a>
                                 <a href="blog/edit/{{ objava._id }}"
-                                   class="btn btn-warning rounded-0 flex-fill bd-highlight">Popravi</a>
+                                   class="btn btn-outline-dark border-0 rounded-0 flex-fill bd-highlight">Popravi</a>
                                 <a href="blog/delete/{{ objava._id }}"
-                                   class="btn btn-danger rounded-0 flex-fill bd-highlight">Izbriši</a>
+                                   class="btn btn-danger rounded-0 border-0 flex-fill bd-highlight">Izbriši</a>
                             </div>
                         </div>
 

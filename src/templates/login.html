@@ -1,28 +1,33 @@
 {% include '_header.html' %}
-<div class="text-center">
-    <h1 class="py-5"><b>Login</b></h1>
+
+<div class="container bg-dark-white shadow p-3">
+
+    <div class="text-center">
+        <h1 class="py-5"><b>Login</b></h1>
 
 
-    <div class="card bg-dark-white shadow m-auto p-auto" style="width:300px">
-        <div class="card-body">
-            <form method="POST" action="/login">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control border-0 border-bottom" id="floatingInput" name="ime"
-                           placeholder="danij8">
-                    <label for="floatingInput">Uporabniško ime</label>
-                </div>
-                <div class="form-floating">
-                    <input type="password" class="form-control border-0 border-bottom" id="floatingPassword" name="geslo"
-                           placeholder="danilojezernikneja">
-                    <label for="floatingPassword">Geslo</label>
-                </div>
-                <div class="d-grid gap-2 mt-3">
-                    <button class="btn btn-success" type="submit">Vpis</button>
-                </div>
-            </form>
+        <div class="card bg-dark-white border-dark shadow m-auto p-auto mb-5" style="width:300px">
+            <div class="card-body">
+                <form method="POST" action="/login">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control border-0 border-bottom" id="floatingInput" name="ime"
+                               placeholder="danij8">
+                        <label for="floatingInput">Uporabniško ime</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" class="form-control border-0 border-bottom" id="floatingPassword"
+                               name="geslo"
+                               placeholder="danilojezernikneja">
+                        <label for="floatingPassword">Geslo</label>
+                    </div>
+                    <div class="d-grid gap-2 mt-3">
+                        <button class="btn btn-dark" type="submit">Vpis</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
 
+    </div>
 </div>
 
 

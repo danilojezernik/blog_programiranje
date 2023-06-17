@@ -12,15 +12,14 @@ from werkzeug.utils import secure_filename
 from src import db, env
 from src.db import count_kategorije, count_tagi, is_admin
 
-
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in env.ALLOWED_EXTENSIONS
-
-
 app = Flask(__name__)
 
 app.secret_key = env.SECRET_KEY
 app.config['UPLOAD_FOLDER'] = env.UPLOAD_FOLDER
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in env.ALLOWED_EXTENSIONS
 
 
 @app.route("/")
@@ -33,6 +32,7 @@ def get_avtor():
     return render_template('avtor.html')
 
 
+# BLOG all
 @app.route("/blog")
 def get_blog():
     page = int(request.args.get('page', 1))
@@ -42,11 +42,13 @@ def get_blog():
     total_pages = math.ceil(total_posts / posts_per_page)
 
     start_index = (page - 1) * posts_per_page
-    end_index = start_index + posts_per_page
+
+    objave_nakljucne = list(db.this.objave.find().limit(1).sort('_id', -1))
 
     objave = list(db.this.objave.find().sort('_id', -1).skip(start_index).limit(posts_per_page))
 
-    return render_template('blog.html', objave=objave, kategorije=count_kategorije(objave), tagi=count_tagi(objave),
+    return render_template('blog.html', objave_nakljucne=objave_nakljucne, objave=objave,
+                           kategorije=count_kategorije(objave), tagi=count_tagi(objave),
                            page=page, total_pages=total_pages)
 
 
@@ -60,8 +62,18 @@ def get_blog_id(_id):
 @app.route('/search', methods=['POST'])
 def search():
     search = request.form['search']
+
+    page = int(request.args.get('page', 1))
+    posts_per_page = 10
+
+    total_posts = db.this.objave.count_documents({})
+    total_pages = math.ceil(total_posts / posts_per_page)
+
+    start_index = (page - 1) * posts_per_page
+
+    objave = list(db.this.objave.find().sort('_id', -1).skip(start_index).limit(posts_per_page))
+
     najdene = []
-    objave = list(db.this.objave.find())
     for o in objave:
         for key in o:
             if key in ['_id', 'ustvarjeno']:
@@ -69,9 +81,11 @@ def search():
             if search in o[key]:
                 najdene.append(o)
                 break
-    return render_template("blog.html", objave=najdene, kategorije=count_kategorije(objave), tagi=count_tagi(objave))
+    return render_template("blog.html", objave=najdene, kategorije=count_kategorije(objave), tagi=count_tagi(objave),
+                           page=page, total_pages=total_pages)
 
 
+# KATEGORIJE
 @app.route("/blog/kategorije/<kategorija>", methods=['GET'])
 def get_blog_kategorija(kategorija):
     page = int(request.args.get('page', 1))
@@ -92,6 +106,7 @@ def get_blog_kategorija(kategorija):
                            page=page, total_pages=total_pages)
 
 
+# TAGI
 @app.route("/blog/tagi/<tag>", methods=['GET'])
 def get_blog_tag(tag):
     page = int(request.args.get('page', 1))

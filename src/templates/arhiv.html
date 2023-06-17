@@ -1,18 +1,32 @@
 {% include '_header.html' %}
 
-<div class="container">
-<h1 class="text-center py-5"><strong>Arhiv</strong></h1>
+<div class="container bg-dark-white shadow p-3">
+    <h1 class="text-center py-5">
+        <strong>
+            Arhiv
+        </strong>
+    </h1>
     <div class="row row-cols-1 row-cols-md-4 g-4">
         {% for objava in arhiv_objave %}
-        <div class="col">
+        <div class="col ">
             <a href="/blog/{{objava._id}}" class="text-decoration-none">
-                <div class="card border-dark h-100">
+                <div class="card shadow border-dark rounded-0 h-100">
 
                     <div class="card-body text-dark">
-                        <h5 class="card-title  text-success"><b>{{ objava.naslov }}</b></h5>
-                        <p class="card-text">{{ objava.opis }}</p>
+                        <h5 class="card-title  text-DARK">
+                            <b>
+                                {{ objava.naslov }}
+                            </b>
+                        </h5>
+                        <p class="card-text">
+                            {{ objava.opis }}
+                        </p>
                     </div>
-                    <div class="card-header border-top text-secondary">Objavleno: <i>{{ objava.ustvarjeno.strftime("%d/%m/%Y - %H:%M:%S") }}</i>
+                    <div class="card-header border-top text-secondary">
+                        Objavleno:
+                        <i>
+                            {{ objava.ustvarjeno.strftime("%d/%m/%Y - %H:%M:%S") }}
+                        </i>
                     </div>
                 </div>
             </a>

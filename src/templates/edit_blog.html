@@ -1,7 +1,7 @@
 {% include '_header.html' %}
+<div class="container bg-dark-white shadow p-3">
+<h1 class="my-5 text-center"><b>Uredi objavo</b></h1>
 
-<h1 class="my-5 text-center">Admin Dashboard</h1>
-<div class="container bg-dark-white shadow my-5 p-3">
     <form method="POST" action="{{ url_for('edit_blog', _id=objava['_id']) }}" enctype="multipart/form-data">
         <div class="row">
             <div class="col">
@@ -35,7 +35,7 @@
             <input type="file" class="form-control" name="image">
         </div>
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button type="submit" class="btn btn-success" value="UPDATE">Objavi</button>
+            <button type="submit" class="btn btn-dark" value="UPDATE">Objavi</button>
         </div>
     </form>
 </div>

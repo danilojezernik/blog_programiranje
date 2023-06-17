@@ -2,25 +2,18 @@
 
 
 <div class="container bg-dark-white shadow p-3">
-
+    <h1 class="py-5 text-center"><b>Blog</b></h1>
     <div class="row">
-
         <div class="col-lg-9">
-
-
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-
+            <div class="row row-cols-1 row-cols-md-2 g-4">
                 {% for objava in objave %}
                 <div class="col">
 
-                    <div class="card bg-dark-white shadow mb-3">
-                        <img src="{{ url_for('static', filename='blog/' ~ objava.image_filename) }}"
-                             alt="{{ objava.naslov }}" class="card-img-top" style="max-height:200px;width:auto;">
-
+                    <div class="card bg-dark-white shadow border-dark rounded-0">
+                        <!--<img src="{{ url_for('static', filename='blog/' ~ objava.image_filename) }}"
+                             alt="{{ objava.naslov }}" class="card-img-top" style="max-height:200px;width:auto;">-->
                         <div class="card-body">
-
-                            <h3 class="card-title">{{ objava.naslov }}</h3>
-
+                            <h3 class="card-title border-bottom pb-2">{{ objava.naslov }}</h3>
                             <p class="card-text">{{ objava.opis }}</p>
                             <p class="card-text">
                                 <small class="text-muted">Tagi:
@@ -32,11 +25,11 @@
                                 </small>
                             </p>
                             <a href="blog/{{ objava._id }}" class="btn btn-success btn-sm">Beri dalje</a>
-
                         </div>
                         <div class="card-footer text-end">
-                            <small class="text-muted">Objavleno {{ objava.ustvarjeno.strftime("%d/%m/%Y - %H:%M:%S")
-                                }}</small>
+                            <small class="text-muted">
+                                Objavleno {{ objava.ustvarjeno.strftime("%d/%m/%Y - %H:%M:%S") }}
+                            </small>
                         </div>
 
                     </div>
@@ -44,31 +37,33 @@
                 {% endfor %}
             </div>
 
-            <ul class="pagination justify-content-center">
+            <ul class="pagination py-3 justify-content-center">
+                {% if not disable_pagination %}
                 {% if page > 1 %}
                 <li class="page-item shadow fw-bold">
-                    <a class="page-link bg-light text-success" href="/blog?page={{ page-1 }}">Nazaj</a>
+                    <a class="page-link bg-dark text-white" href="/blog?page={{ page-1 }}">Nazaj</a>
                 </li>
                 {% else %}
-                <li class="page-item shadow fw-bold disabled">
-                    <a class="page-link bg-light text-success">Nazaj</a>
+                <li class="page-item shadow disabled">
+                    <a class="page-link bg-dark text-decoration-line-through text-white">Nazaj</a>
                 </li>
                 {% endif %}
 
                 {% for p in range(1, total_pages + 1) %}
-                <li class="page-item shadow fw-bold {% if p == page %}active{% endif %}">
-                    <a class="page-link bg-light text-success" href="/blog?page={{ p }}">{{ p }}</a>
+                <li class="page-item shadow fw-bold {% if p == page %}active bg-dark text-white{% endif %}">
+                    <a class="page-link bg-dark-white text-dark" href="/blog?page={{ p }}">{{ p }}</a>
                 </li>
                 {% endfor %}
 
                 {% if page < total_pages %}
                 <li class="page-item shadow fw-bold">
-                    <a class="page-link bg-light text-success" href="/blog?page={{ page+1 }}">Naprej</a>
+                    <a class="page-link bg-dark text-white" href="/blog?page={{ page+1 }}">Naprej</a>
                 </li>
                 {% else %}
-                <li class="page-item shadow fw-bold disabled">
-                    <a class="page-link bg-light text-success">Naprej</a>
+                <li class="page-item shadow disabled">
+                    <a class="page-link bg-dark text-decoration-line-through text-white">Naprej</a>
                 </li>
+                {% endif %}
                 {% endif %}
             </ul>
 
@@ -79,7 +74,7 @@
 
             <div class="card bg-dark text-white shadow mb-3">
                 <div class="card-body text-uppercase">
-                    <h3 class="card-title text-center fs-6"># kategorije</h3>
+                    <h3 class="card-title text-center border-bottom fs-6 pb-2"># kategorije</h3>
 
                     {% for kategorija in kategorije %}
                     <p class="card-text">
@@ -98,8 +93,8 @@
 
             <div class="card bg-dark-white shadow mb-3">
                 <div class="card-body">
-                    <h3 class="card-title text-uppercase text-center fs-6">Naključne objave</h3>
-                    {% for random_post in objave %}
+                    <h3 class="card-title text-uppercase text-center fs-6 border-bottom pb-2">Zadnja objava</h3>
+                    {% for random_post in objave_nakljucne %}
                     <div class="card bg-transparent border-0">
                         <div class="row g-0">
                             <div class="col">
@@ -113,14 +108,12 @@
                         </div>
                     </div>
                     {% endfor %}
-
-
                 </div>
             </div>
 
             <div class="card bg-dark-white shadow mb-3">
                 <div class="card-body text-uppercase">
-                    <h3 class="card-title text-center fs-6"># TAGI</h3>
+                    <h3 class="card-title text-center fs-6 border-bottom pb-2"># TAGI</h3>
 
                     <div class="card bg-transparent border-0 mb-3">
                         <div class="card-body">
@@ -137,11 +130,9 @@
                 </div>
             </div>
 
-
         </div>
 
     </div>
-
 
 </div>
 
