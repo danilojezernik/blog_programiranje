@@ -115,7 +115,6 @@ def count_kategorije(objave):
     return kategorije
 
 
-
 def drop():
     this.objave.drop()
 

@@ -6,22 +6,28 @@
         <h1 class="py-5"><b>Login</b></h1>
 
 
-        <div class="card bg-dark-white border-dark shadow m-auto p-auto mb-5" style="width:300px">
+        <div class="card bg-dark-white border-dark rounded-0 shadow m-auto p-auto mb-5" style="width:300px">
             <div class="card-body">
                 <form method="POST" action="/login">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control border-0 border-bottom" id="floatingInput" name="ime"
+                        <input type="text" class="form-control border-0 rounded-0 border-bottom" id="floatingInput"
+                               name="ime"
                                placeholder="danij8">
                         <label for="floatingInput">Uporabniško ime</label>
                     </div>
                     <div class="form-floating">
-                        <input type="password" class="form-control border-0 border-bottom" id="floatingPassword"
+                        <input type="password" class="form-control rounded-0 border-0 border-bottom"
+                               id="floatingPassword"
                                name="geslo"
                                placeholder="danilojezernikneja">
                         <label for="floatingPassword">Geslo</label>
                     </div>
+                    <div class="form-check mt-3">
+                        <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
+                        <label class="form-check-label" for="rememberMe">Remember Me</label>
+                    </div>
                     <div class="d-grid gap-2 mt-3">
-                        <button class="btn btn-dark" type="submit">Vpis</button>
+                        <button class="btn btn-dark rounded-0" type="submit">Vpis</button>
                     </div>
                 </form>
             </div>

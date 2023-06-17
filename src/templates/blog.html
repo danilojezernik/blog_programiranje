@@ -8,7 +8,7 @@
             <div class="row row-cols-1 row-cols-md-2 g-4">
                 {% for objava in objave %}
                 <div class="col">
-
+<a href="blog/{{ objava._id }}" class="text-decoration-none text-dark">
                     <div class="card bg-dark-white shadow border-dark rounded-0">
                         <!--<img src="{{ url_for('static', filename='blog/' ~ objava.image_filename) }}"
                              alt="{{ objava.naslov }}" class="card-img-top" style="max-height:200px;width:auto;">-->
@@ -24,15 +24,14 @@
                                     {% endfor %}
                                 </small>
                             </p>
-                            <a href="blog/{{ objava._id }}" class="btn btn-success btn-sm">Beri dalje</a>
                         </div>
-                        <div class="card-footer text-end">
-                            <small class="text-muted">
+                        <div class="card-footer rounded-0 text-end bg-dark text-white">
+                            <small class="">
                                 Objavleno {{ objava.ustvarjeno.strftime("%d/%m/%Y - %H:%M:%S") }}
                             </small>
                         </div>
 
-                    </div>
+                    </div></a>
                 </div>
                 {% endfor %}
             </div>
@@ -83,7 +82,7 @@
                                 {{ kategorija }}
                             </a>
                         </small>
-                        <span class="badge p-1 bg-success">
+                        <span class="badge p-1 bg-white text-black">
                             {{ kategorije[kategorija] }}
                         </span>
                     </p>
