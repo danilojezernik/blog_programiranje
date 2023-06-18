@@ -14,7 +14,7 @@
                                  alt="{{ objava.naslov }}" class="card-img-top" style="max-height:200px;width:auto;">
                                  -->
                             <div class="card-body">
-                                <h3 class="card-title border-bottom pb-2">{{ objava.naslov }}</h3>
+                                <h3 class="card-title border-bottom pb-2 fw-bold">{{ objava.naslov }}</h3>
                                 <p class="card-text">
                                     {{ objava.vsebina[:800] |safe + '...' if objava.vsebina|length > 800 else
                                     objava.vsebina |safe }}
@@ -31,7 +31,7 @@
                             </div>
                             <div class="card-footer rounded-0 text-end bg-dark text-white">
                                 <small class="">
-                                    Objavleno {{ objava.ustvarjeno.strftime("%d/%m/%Y - %H:%M:%S") }}
+                                    Objavleno: {{ objava.ustvarjeno.strftime("%d/%m/%Y - %H:%M:%S") }}
                                 </small>
                             </div>
                         </div>
@@ -104,7 +104,7 @@
                                             {{ random_post.naslov }}
                                         </h6>
                                         <p class="card-text">
-                                            <small class="text-muted">{{ random_post.ustvarjeno }}</small>
+                                            <small class="text-muted">{{ random_post.ustvarjeno.strftime("%d/%m/%Y - %H:%M:%S") }}</small>
                                         </p>
                                     </div>
                                 </a>
