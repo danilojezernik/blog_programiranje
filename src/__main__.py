@@ -130,23 +130,26 @@ def edit_blog(_id):
         podnaslov = request.form['podnaslov']
         naslov = request.form['naslov']
         tag = request.form['tagi'].split()
-        ustvarjeno = datetime.datetime.now()
         kategorije = request.form['kategorije'].split()
+        ustvarjeno = datetime.datetime.now()
+        imageData = None
 
         if 'image' in request.files:
             image = request.files['image']
             if image.filename != '':
                 if allowed_file(image.filename):
                     filename = secure_filename(image.filename)
+                    image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                     image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                    im = Image.open(image_path)
+
+                    buffered = BytesIO()
+                    im.save(buffered, format="PNG")
+
+                    imageData = f"data:image/png;base64,{base64.b64encode(buffered.getvalue()).decode()}"
                 else:
                     flash('Allowed image types are -> png, jpg, jpeg, gif')
                     return redirect(request.url)
-            else:
-                filename = None
-        else:
-            filename = None
-
         db.this.objave.update_one(
             {'_id': ObjectId(_id)},
             {
@@ -156,9 +159,9 @@ def edit_blog(_id):
                     'podnaslov': podnaslov,
                     'naslov': naslov,
                     'tagi': tag,
-                    'image_filename': filename,
                     'ustvarjeno': ustvarjeno,
-                    'kategorije': kategorije
+                    'kategorije': kategorije,
+                    'slika': imageData
                 }
             }
         )
