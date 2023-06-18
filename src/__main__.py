@@ -1,7 +1,10 @@
+import base64
 import math
 import os
+from io import BytesIO
 
 import flask
+from PIL import Image
 from bson import ObjectId
 from flask import Flask, render_template, request, redirect, flash, url_for
 
@@ -204,33 +207,37 @@ def get_admin():
         opis = request.form['opis']
         podnaslov = request.form['podnaslov']
         naslov = request.form['naslov']
-        tag = request.form['tagi']
+        tag = request.form['tagi'].split()
         kategorije = request.form['kategorije'].split()
         ustvarjeno = datetime.datetime.now()
+        imageData = None
 
         if 'image' in request.files:
             image = request.files['image']
             if image.filename != '':
                 if allowed_file(image.filename):
                     filename = secure_filename(image.filename)
+                    image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                     image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                    im = Image.open(image_path)
+
+                    buffered = BytesIO()
+                    im.save(buffered, format="PNG")
+
+                    imageData = f"data:image/png;base64,{base64.b64encode(buffered.getvalue()).decode()}"
                 else:
                     flash('Allowed image types are -> png, jpg, jpeg, gif')
                     return redirect(request.url)
-            else:
-                filename = None
-        else:
-            filename = None
         inserted_id = db.this.objave.insert_one(
             {
                 'vsebina': vsebina,
                 'opis': opis,
                 'podnaslov': podnaslov,
                 'naslov': naslov,
-                'image_filename': filename,
                 'tagi': tag,
                 'ustvarjeno': ustvarjeno,
-                'kategorije': kategorije
+                'kategorije': kategorije,
+                'slika': imageData
             }
         ).inserted_id
 

@@ -2,3 +2,6 @@ flask
 pymongo
 flask-login
 flask-paginate
+pillow
+Jinja2
+gunicorn

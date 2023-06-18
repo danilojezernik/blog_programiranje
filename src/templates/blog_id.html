@@ -5,7 +5,7 @@
 
     <h1 class="text-center fw-bold py-5">{{ objava.naslov }}</h1>
     <div class="text-center">
-        <img src="{{ url_for('static', filename='blog/' ~ objava.image_filename) }}" class="img-fluid"
+        <img src="{{ objava.slika }}" class="img-fluid"
              style="max-width:300px;max-height:300px;background-color: transparent;" alt="{{ objava.naslov }}">
     </div>
     <h2>{{ objava.podnaslov }}</h2>

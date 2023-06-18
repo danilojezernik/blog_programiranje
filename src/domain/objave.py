@@ -8,6 +8,7 @@ class Objava:
     tagi: list[str]
     podnaslov: str
     opis: str
+    slika: str
     vsebina: str
     ustvarjeno: datetime
     kategorije: list[str]
