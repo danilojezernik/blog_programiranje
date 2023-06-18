@@ -42,7 +42,6 @@ def get_blog():
     page = int(request.args.get('page', 1))
     objave = list(db.this.objave.find().sort('_id', -1))
     page_objave, total_pages = db.objave_page(objave, page)
-    print(objave)
 
     return render_template('blog.html', route="/blog", objave_nakljucne=objave[-1:], objave=page_objave,
                            kategorije=count_kategorije(objave), tagi=count_tagi(objave),
@@ -101,7 +100,6 @@ def get_blog_kategorija(kategorija):
 def get_blog_tag(tag):
     page = int(request.args.get('page', 1))
     objave = list(db.this.objave.find().sort('_id', -1))
-
 
     najdene = []
     for o in objave:
