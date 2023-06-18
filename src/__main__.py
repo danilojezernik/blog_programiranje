@@ -124,6 +124,7 @@ def delete_blog(_id):
 @app.route('/blog/edit/<_id>', methods=['GET', 'POST'])
 def edit_blog(_id):
     post = list(db.this.objave.find({'_id': ObjectId(_id)}))[0]
+
     if request.method == 'POST':
         vsebina = request.form['vsebina']
         opis = request.form['opis']
