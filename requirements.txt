@@ -5,3 +5,4 @@ flask-paginate
 pillow
 Jinja2
 gunicorn
+python-dotenv
