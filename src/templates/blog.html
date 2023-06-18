@@ -16,7 +16,8 @@
                             <div class="card-body">
                                 <h3 class="card-title border-bottom pb-2">{{ objava.naslov }}</h3>
                                 <p class="card-text">
-                                    {{ objava.vsebina[:800] |safe + '...' if objava.vsebina|length > 800 else objava.vsebina |safe }}
+                                    {{ objava.vsebina[:800] |safe + '...' if objava.vsebina|length > 800 else
+                                    objava.vsebina |safe }}
                                 </p>
                                 <p class="card-text">
                                     <small class="text-muted">Tagi:
@@ -42,7 +43,8 @@
                 {% if not disable_pagination %}
                 {% if page > 1 %}
                 <li class="page-item shadow fw-bold">
-                    <a class="page-link rounded-0 border border-dark bg-dark text-white" href="{{route}}?page={{ page-1 }}">Nazaj</a>
+                    <a class="page-link rounded-0 border border-dark bg-dark text-white"
+                       href="{{route}}?page={{ page-1 }}">Nazaj</a>
                 </li>
                 {% else %}
                 <li class="page-item shadow disabled">
@@ -58,7 +60,8 @@
 
                 {% if page < total_pages %}
                 <li class="page-item shadow fw-bold">
-                    <a class="page-link bg-dark rounded-0 border border-dark text-white" href="{{route}}?page={{ page+1 }}">Naprej</a>
+                    <a class="page-link bg-dark rounded-0 border border-dark text-white"
+                       href="{{route}}?page={{ page+1 }}">Naprej</a>
                 </li>
                 {% else %}
                 <li class="page-item shadow disabled">
@@ -94,12 +97,19 @@
                     <div class="card bg-transparent border-0">
                         <div class="row g-0">
                             <div class="col">
-                                <div class="card-body">
-                                    <h6 class="card-title">{{ random_post.naslov }}</h6>
-                                    <p class="card-text">
-                                        <small class="text-muted">{{ random_post.ustvarjeno }}</small>
-                                    </p>
-                                </div>
+                                <a href="{{ url_for('get_blog_id', _id=random_post._id) }}"
+                                   class="text-decoration-none text-dark">
+                                    <div class="card-body">
+                                        <h6 class="card-title">
+
+                                            {{ random_post.naslov }}
+
+                                        </h6>
+                                        <p class="card-text">
+                                            <small class="text-muted">{{ random_post.ustvarjeno }}</small>
+                                        </p>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>
