@@ -11,31 +11,27 @@
     <title>Blog o programiranju</title>
 
     <style>
-        .bg {
-        background-image: url({{ url_for ('static', filename = './bg/background-main.png') }});
-        background-attachment: fixed;
-        z-index: -1;
-        }
+            .bg {
+            background-image: url({{ url_for ('static', filename = './bg/background-main.png') }});
+            background-attachment: fixed;
+            z-index: -1;
+            }
 
-        .shadow-random {
-        box-shadow: 0px 28px 18px 0px rgba(0,0,0,0.1)
-        }
+            .shadow-random {
+            box-shadow: 0px 28px 18px 0px rgba(0,0,0,0.1)
+            }
 
-        .sticky-top {
-        position: -webkit-sticky;
-        position: sticky;
-        top: 0;
-        z-index: 1020;
-        }
-
-
-
-
+            .sticky-top {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            z-index: 1020;
+            }
 
     </style>
 </head>
 <body class="bg my-0 my-sm-5">
-<div class="container bg-dark-white shadow-lg ">
+<div class="container bg-dark-white border-dark border-top border-end border-start shadow-lg ">
     <!-- Socialna omrežja in Isklanje desno -->
     <div class="container p-3">
         <nav class="navbar navbar-light">
@@ -91,12 +87,12 @@
 
     <!-- Napis glavni -->
     <div class="container py-4 text-center">
-        <h1>Danilo Jezernik</h1>
-        <p class="lead text-secondary">Blog o programiranju</p>
+        <h1>Blog o programiranju</h1>
+        <p class="lead text-secondary">FullStack software development</p>
     </div>
     <!-- KONEC -->
 </div>
-<div class="container shadow-random sticky-top bg-dark">
+<div class="container border-start border-end border-dark shadow-random sticky-top bg-dark">
     <!-- Navbar -->
     <div class="container py-3">
         <nav class="navbar navbar-expand-lg navbar-dark ">

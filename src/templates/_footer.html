@@ -1,3 +1,12 @@
+<div class="container bg-dark border-dark shadow p-3 text-end">
+    <footer class="text-end">
+
+        <ul class="nav justify-content-center  text-center">
+            <li class="nav-item text-white">01010000 01101111 01111010 01100100 01110010 01100001 01110110</li>
+        </ul>
+    </footer>
+</div>
+
 <script>
 
     tinymce.init({
@@ -12,20 +21,18 @@
         ]
     });
 
-function YesNoConfirm() {
-  if (window.confirm('Res želite na drugo stran?')) {
-    alert("Po 2 sekundah boste preusmerjeni");
-    setTimeout(() => {
-      window.open('https://danilojezernik.com/', '_blank');
-    }, 2000);
-  } else {
-    return false;
-  }
-}
-
+    function potrditev() {
+      if (window.confirm('Res želite na drugo stran?')) {
+        alert("Preusmerjeni boste na spletno stran danilojezernik.com");
+          window.open('https://danilojezernik.com/', '_blank');
+      } else {
+        return false;
+      }
+    }
 
 
 </script>
+<script src="{{ url_for('static', filename='js/hacker.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>

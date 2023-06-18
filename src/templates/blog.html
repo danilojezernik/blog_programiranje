@@ -1,76 +1,74 @@
 {% include '_header.html' %}
 
-
-<div class="container bg-dark-white shadow p-3">
+<div class="container border-dark border-start border-end bg-dark-white shadow p-3">
     <h1 class="py-5 text-center"><b>Blog</b></h1>
     <div class="row">
         <div class="col-lg-9">
-            <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="row row-cols-1 row-cols-md-1 g-4">
                 {% for objava in objave %}
                 <div class="col">
-<a href="blog/{{ objava._id }}" class="text-decoration-none text-dark">
-                    <div class="card bg-dark-white shadow border-dark rounded-0">
-                        <!--<img src="{{ url_for('static', filename='blog/' ~ objava.image_filename) }}"
-                             alt="{{ objava.naslov }}" class="card-img-top" style="max-height:200px;width:auto;">-->
-                        <div class="card-body">
-                            <h3 class="card-title border-bottom pb-2">{{ objava.naslov }}</h3>
-                            <p class="card-text">{{ objava.opis }}</p>
-                            <p class="card-text">
-                                <small class="text-muted">Tagi:
-                                    {% for tag in objava.tagi %}
-                                    <span class="badge bg-dark me-1">
+                    <a href="{{ url_for('get_blog_id', _id=objava._id) }}" class="text-decoration-none text-dark">
+                        <div class="card bg-white shadow border-dark rounded-0">
+                            <!--
+                            <img src="{{ url_for('static', filename='blog/' ~ objava.image_filename) }}"
+                                 alt="{{ objava.naslov }}" class="card-img-top" style="max-height:200px;width:auto;">
+                                 -->
+                            <div class="card-body">
+                                <h3 class="card-title border-bottom pb-2">{{ objava.naslov }}</h3>
+                                <p class="card-text">
+                                    {{ objava.vsebina[:800] |safe + '...' if objava.vsebina|length > 800 else objava.vsebina |safe }}
+                                </p>
+                                <p class="card-text">
+                                    <small class="text-muted">Tagi:
+                                        {% for tag in objava.tagi %}
+                                        <span class="badge bg-dark me-1">
                                         {{ tag }}
                                     </span>
-                                    {% endfor %}
+                                        {% endfor %}
+                                    </small>
+                                </p>
+                            </div>
+                            <div class="card-footer rounded-0 text-end bg-dark text-white">
+                                <small class="">
+                                    Objavleno {{ objava.ustvarjeno.strftime("%d/%m/%Y - %H:%M:%S") }}
                                 </small>
-                            </p>
+                            </div>
                         </div>
-                        <div class="card-footer rounded-0 text-end bg-dark text-white">
-                            <small class="">
-                                Objavleno {{ objava.ustvarjeno.strftime("%d/%m/%Y - %H:%M:%S") }}
-                            </small>
-                        </div>
-
-                    </div></a>
+                    </a>
                 </div>
                 {% endfor %}
             </div>
-
             <ul class="pagination py-3 justify-content-center">
                 {% if not disable_pagination %}
                 {% if page > 1 %}
                 <li class="page-item shadow fw-bold">
-                    <a class="page-link bg-dark text-white" href="/blog?page={{ page-1 }}">Nazaj</a>
+                    <a class="page-link rounded-0 border border-dark bg-dark text-white" href="{{route}}?page={{ page-1 }}">Nazaj</a>
                 </li>
                 {% else %}
                 <li class="page-item shadow disabled">
-                    <a class="page-link bg-dark text-decoration-line-through text-white">Nazaj</a>
+                    <a class="page-link rounded-0 border border-dark bg-dark text-decoration-line-through text-white">Nazaj</a>
                 </li>
                 {% endif %}
 
                 {% for p in range(1, total_pages + 1) %}
                 <li class="page-item shadow fw-bold {% if p == page %}active bg-dark text-white{% endif %}">
-                    <a class="page-link bg-dark-white text-dark" href="/blog?page={{ p }}">{{ p }}</a>
+                    <a class="page-link bg-white text-dark" href="{{route}}?page={{ p }}">{{ p }}</a>
                 </li>
                 {% endfor %}
 
                 {% if page < total_pages %}
                 <li class="page-item shadow fw-bold">
-                    <a class="page-link bg-dark text-white" href="/blog?page={{ page+1 }}">Naprej</a>
+                    <a class="page-link bg-dark rounded-0 border border-dark text-white" href="{{route}}?page={{ page+1 }}">Naprej</a>
                 </li>
                 {% else %}
                 <li class="page-item shadow disabled">
-                    <a class="page-link bg-dark text-decoration-line-through text-white">Naprej</a>
+                    <a class="page-link bg-dark rounded-0 border border-dark text-decoration-line-through text-white">Naprej</a>
                 </li>
                 {% endif %}
                 {% endif %}
             </ul>
-
-
         </div>
-
         <div class="col-lg-3">
-
             <div class="card bg-dark text-white shadow mb-3">
                 <div class="card-body text-uppercase">
                     <h3 class="card-title text-center border-bottom fs-6 pb-2"># kategorije</h3>
@@ -89,8 +87,7 @@
                     {% endfor %}
                 </div>
             </div>
-
-            <div class="card bg-dark-white shadow mb-3">
+            <div class="card bg-white shadow mb-3">
                 <div class="card-body">
                     <h3 class="card-title text-uppercase text-center fs-6 border-bottom pb-2">Zadnja objava</h3>
                     {% for random_post in objave_nakljucne %}
@@ -109,11 +106,9 @@
                     {% endfor %}
                 </div>
             </div>
-
-            <div class="card bg-dark-white shadow mb-3">
+            <div class="card bg-white shadow mb-3">
                 <div class="card-body text-uppercase">
                     <h3 class="card-title text-center fs-6 border-bottom pb-2"># TAGI</h3>
-
                     <div class="card bg-transparent border-0 mb-3">
                         <div class="card-body">
                             {% for tag in tagi %}
@@ -125,14 +120,10 @@
                             {% endfor %}
                         </div>
                     </div>
-
                 </div>
             </div>
-
         </div>
-
     </div>
-
 </div>
 
 {% include '_footer.html' %}

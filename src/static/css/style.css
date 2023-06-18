@@ -29,3 +29,16 @@
 .page-item.active .page-link {
     border: 0;
 }
+
+
+.navbar li {
+transition: .5s;
+}
+
+.navbar:hover li {
+filter: blur(1px);
+}
+
+.navbar li:hover {
+filter: blur(0px);
+}

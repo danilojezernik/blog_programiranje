@@ -1,4 +1,5 @@
 import datetime
+import math
 from dataclasses import asdict
 
 from pymongo import MongoClient
@@ -86,6 +87,20 @@ objave = [
                vsebina='Že vrsto let je Kotlin znan kot programski jezik, ki se najbolj uporablja pri programiranju',
                ustvarjeno=datetime.datetime.now()))
 ]
+
+
+def objave_page(objave, page):
+    posts_per_page = 10
+    total_posts = len(objave)
+    total_pages = math.ceil(total_posts / posts_per_page)
+
+    start_index = (page - 1) * posts_per_page
+    end_index = min([start_index + posts_per_page, len(objave)])
+
+    page_objave = []
+    for i in range(start_index, end_index):
+        page_objave.append(objave[i])
+    return page_objave, total_pages
 
 
 def count_tagi(objave):

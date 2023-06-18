@@ -12,14 +12,15 @@ from werkzeug.utils import secure_filename
 from src import db, env
 from src.db import count_kategorije, count_tagi, is_admin
 
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in env.ALLOWED_EXTENSIONS
+
+
 app = Flask(__name__)
 
 app.secret_key = env.SECRET_KEY
 app.config['UPLOAD_FOLDER'] = env.UPLOAD_FOLDER
-
-
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in env.ALLOWED_EXTENSIONS
 
 
 @app.route("/")
@@ -36,18 +37,10 @@ def get_avtor():
 @app.route("/blog")
 def get_blog():
     page = int(request.args.get('page', 1))
-    posts_per_page = 10
+    objave = list(db.this.objave.find().sort('_id', -1))
+    page_objave, total_pages = db.objave_page(objave, page)
 
-    total_posts = db.this.objave.count_documents({})
-    total_pages = math.ceil(total_posts / posts_per_page)
-
-    start_index = (page - 1) * posts_per_page
-
-    objave_nakljucne = list(db.this.objave.find().limit(1).sort('_id', -1))
-
-    objave = list(db.this.objave.find().sort('_id', -1).skip(start_index).limit(posts_per_page))
-
-    return render_template('blog.html', objave_nakljucne=objave_nakljucne, objave=objave,
+    return render_template('blog.html', route="/blog", objave_nakljucne=objave[-1:], objave=page_objave,
                            kategorije=count_kategorije(objave), tagi=count_tagi(objave),
                            page=page, total_pages=total_pages)
 
@@ -64,14 +57,7 @@ def search():
     search = request.form['search']
 
     page = int(request.args.get('page', 1))
-    posts_per_page = 10
-
-    total_posts = db.this.objave.count_documents({})
-    total_pages = math.ceil(total_posts / posts_per_page)
-
-    start_index = (page - 1) * posts_per_page
-
-    objave = list(db.this.objave.find().sort('_id', -1).skip(start_index).limit(posts_per_page))
+    objave = list(db.this.objave.find().sort('_id', -1))
 
     najdene = []
     for o in objave:
@@ -81,7 +67,10 @@ def search():
             if search in o[key]:
                 najdene.append(o)
                 break
-    return render_template("blog.html", objave=najdene, kategorije=count_kategorije(objave), tagi=count_tagi(objave),
+
+    page_objave, total_pages = db.objave_page(najdene, page)
+    return render_template("blog.html", route="/search", objave=page_objave, objave_nakljucne=objave[-1:],
+                           kategorije=count_kategorije(objave), tagi=count_tagi(objave),
                            page=page, total_pages=total_pages)
 
 
@@ -89,20 +78,17 @@ def search():
 @app.route("/blog/kategorije/<kategorija>", methods=['GET'])
 def get_blog_kategorija(kategorija):
     page = int(request.args.get('page', 1))
-    posts_per_page = 10
-
-    total_posts = db.this.objave.count_documents({})
-    total_pages = math.ceil(total_posts / posts_per_page)
-
-    start_index = (page - 1) * posts_per_page
-
-    objave = list(db.this.objave.find().sort('_id', -1).skip(start_index).limit(posts_per_page))
+    objave = list(db.this.objave.find().sort('_id', -1))
 
     najdene = []
     for o in objave:
         if kategorija in o['kategorije']:
             najdene.append(o)
-    return render_template('blog.html', objave=najdene, kategorije=count_kategorije(objave), tagi=count_tagi(objave),
+
+    page_objave, total_pages = db.objave_page(najdene, page)
+
+    return render_template('blog.html', route=f"/blog/kategorije/{kategorija}", objave_nakljucne=objave[-1:],
+                           objave=page_objave, kategorije=count_kategorije(objave), tagi=count_tagi(objave),
                            page=page, total_pages=total_pages)
 
 
@@ -110,20 +96,17 @@ def get_blog_kategorija(kategorija):
 @app.route("/blog/tagi/<tag>", methods=['GET'])
 def get_blog_tag(tag):
     page = int(request.args.get('page', 1))
-    posts_per_page = 10
-
-    total_posts = db.this.objave.count_documents({})
-    total_pages = math.ceil(total_posts / posts_per_page)
-
-    start_index = (page - 1) * posts_per_page
-
-    objave = list(db.this.objave.find().sort('_id', -1).skip(start_index).limit(posts_per_page))
+    objave = list(db.this.objave.find().sort('_id', -1))
 
     najdene = []
     for o in objave:
         if tag in o['tagi']:
             najdene.append(o)
-    return render_template('blog.html', objave=najdene, tagi=count_tagi(objave), kategorije=count_kategorije(objave),
+
+    page_objave, total_pages = db.objave_page(najdene, page)
+
+    return render_template('blog.html', route=f"/blog/tagi/{tag}", objave=page_objave, objave_nakljucne=objave[-1:],
+                           tagi=count_tagi(objave), kategorije=count_kategorije(objave),
                            page=page, total_pages=total_pages)
 
 
@@ -137,15 +120,15 @@ def delete_blog(_id):
 # EDIT Blog post by ID
 @app.route('/blog/edit/<_id>', methods=['GET', 'POST'])
 def edit_blog(_id):
-    post = db.this.objave.find_one({'_id': ObjectId(_id)})
+    post = list(db.this.objave.find({'_id': ObjectId(_id)}))[0]
     if request.method == 'POST':
         vsebina = request.form['vsebina']
         opis = request.form['opis']
         podnaslov = request.form['podnaslov']
         naslov = request.form['naslov']
-        tag = request.form['tagi']
+        tag = request.form['tagi'].split()
         ustvarjeno = datetime.datetime.now()
-        kategorije = request.form['kategorije']
+        kategorije = request.form['kategorije'].split()
 
         if 'image' in request.files:
             image = request.files['image']
@@ -160,6 +143,7 @@ def edit_blog(_id):
                 filename = None
         else:
             filename = None
+
         db.this.objave.update_one(
             {'_id': ObjectId(_id)},
             {
@@ -175,8 +159,10 @@ def edit_blog(_id):
                 }
             }
         )
-        return redirect(url_for('get_blog_id', _id=_id))
+        return redirect(url_for('get_admin'))
 
+    post['tagi'] = " ".join(post['tagi'])
+    post['kategorije'] = " ".join(post['kategorije'])
     return render_template('edit_blog.html', objava=post)
 
 
@@ -219,7 +205,7 @@ def get_admin():
         podnaslov = request.form['podnaslov']
         naslov = request.form['naslov']
         tag = request.form['tagi']
-        kategorije = request.form['kategorije']
+        kategorije = request.form['kategorije'].split()
         ustvarjeno = datetime.datetime.now()
 
         if 'image' in request.files:
