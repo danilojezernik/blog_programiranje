@@ -30,7 +30,7 @@
     border: 0;
 }
 
-
+@media (min-width: 1025px) {
 .navbar li {
 transition: .5s;
 }
@@ -41,4 +41,5 @@ filter: blur(1px);
 
 .navbar li:hover {
 filter: blur(0px);
+}
 }
