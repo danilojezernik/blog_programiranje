@@ -1,20 +1,26 @@
 {% include '_header.html' %}
 
 
-<div class="container border-dark border-end border-start bg-dark-white shadow">
-    <div class="text-center pt-5 pb-2">
+<div class="container p-3 border-dark border-end border-start bg-dark-white shadow">
+    <div class=" pt-5 pb-2">
         <h1 class="fw-bold">{{ objava.naslov }}</h1>
-        <h3>{{ objava.podnaslov }}</h3>
+        <p><small>Objavljen: {{ objava.ustvarjeno.strftime("%d/%m/%Y - %H:%M:%S") }}</small></p>
+
     </div>
 
-    <div class="text-center">
-        <img src="{{ objava.slika }}" class="img-fluid"
-             style="max-width:300px;max-height:300px;background-color: transparent;" alt="{{ objava.naslov }}">
-    </div>
+    <!--
+     <div class="text-center">
+         <img src="{{ objava.slika }}" class="img-fluid"
+              style="max-width:300px;max-height:300px;background-color: transparent;" alt="{{ objava.naslov }}">
+     </div>
+     -->
+    <h3>{{ objava.podnaslov }}</h3>
+    <p class="pb-4">{{ objava.vsebina |safe }}</p>
 
-    <p>{{ objava.vsebina |safe }}</p>
-    <p>{{ objava.ustvarjeno.strftime("%d/%m/%Y - %H:%M:%S") }}</p>
-    <button onclick="history.back()" class="btn btn-primary btn-sm">Nazaj</button>
+
+    <div class="d-grid gap-2 m-3 col-6 mx-auto">
+        <button onclick="history.back()" class="btn btn-outline-dark" type="button">Nazaj na prejšnjo stran</button>
+    </div>
 </div>
 
 

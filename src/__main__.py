@@ -119,6 +119,14 @@ def delete_blog(_id):
     return redirect(url_for('get_admin'))
 
 
+# DELETE Many Blog posts by ID
+@app.route('/blog/delete', methods=['POST'])
+def delete_blog_many():
+    selected_posts = request.form.getlist('izbrane_izbrisi')
+    db.this.objave.delete_many({'_id': {'$in': [ObjectId(_id) for _id in selected_posts]}})
+    return redirect(url_for('get_admin'))
+
+
 # EDIT Blog post by ID
 @app.route('/blog/edit/<_id>', methods=['GET', 'POST'])
 def edit_blog(_id):
