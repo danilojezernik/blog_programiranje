@@ -165,7 +165,7 @@ def edit_blog(_id):
                 }
             }
         )
-        return redirect(url_for('get_blog_id', _id=_id))
+        return redirect(url_for('get_admin'))
 
     post['tagi'] = " ".join(post['tagi'])
     post['kategorije'] = " ".join(post['kategorije'])
