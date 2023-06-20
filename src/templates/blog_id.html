@@ -2,10 +2,11 @@
 
 
 <div class="container p-3 border-dark border-end border-start bg-dark-white shadow">
-    <div class=" pt-5 pb-2">
+    <div class=" pt-5">
         <h1 class="fw-bold">{{ objava.naslov }}</h1>
-        <p><small>Objavljen: {{ objava.ustvarjeno.strftime("%d/%m/%Y - %H:%M:%S") }}</small></p>
-
+        <p>
+            <small>Objavljen: {{ objava.ustvarjeno.strftime("%d/%m/%Y - %H:%M:%S") }}</small>
+        </p>
     </div>
 
     <!--
@@ -14,12 +15,14 @@
               style="max-width:300px;max-height:300px;background-color: transparent;" alt="{{ objava.naslov }}">
      </div>
      -->
-    <h3>{{ objava.podnaslov }}</h3>
-    <p class="pb-4">{{ objava.vsebina |safe }}</p>
+    <!--
+        <h3 class="pt-3">{{ objava.podnaslov }}</h3>
+    -->
+    <p>{{ objava.vsebina |safe }}</p>
 
-
-    <div class="d-grid gap-2 m-3 col-6 mx-auto">
-        <button onclick="history.back()" class="btn btn-outline-dark" type="button">Nazaj na prejšnjo stran</button>
+    <div class="d-grid gap-2  col-6 mx-auto">
+        <button onclick="history.back()" class="btn my-4 btn-outline-dark" type="button">Nazaj na prejšnjo stran
+        </button>
     </div>
 </div>
 

@@ -156,7 +156,6 @@ def edit_blog(_id):
 
                     imageData = f"data:image/png;base64,{base64.b64encode(buffered.getvalue()).decode()}"
                 else:
-                    flash('Allowed image types are -> png, jpg, jpeg, gif')
                     return redirect(request.url)
         db.this.objave.update_one(
             {'_id': ObjectId(_id)},
@@ -237,7 +236,6 @@ def get_admin():
 
                     imageData = f"data:image/png;base64,{base64.b64encode(buffered.getvalue()).decode()}"
                 else:
-                    flash('Allowed image types are -> png, jpg, jpeg, gif')
                     return redirect(request.url)
         inserted_id = db.this.objave.insert_one(
             {
