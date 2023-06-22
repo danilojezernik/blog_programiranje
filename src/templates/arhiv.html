@@ -19,7 +19,8 @@
                             </b>
                         </h5>
                         <p class="card-text">
-                            {{ objava.opis }}
+                            {{ objava.vsebina[:200] |safe + '...' if objava.vsebina|length > 200 else
+                                    objava.vsebina |safe }}
                         </p>
                     </div>
                     <div class="card-header border-top text-secondary">
