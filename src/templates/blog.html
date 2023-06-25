@@ -9,10 +9,6 @@
                 <div class="col">
                     <a href="{{ url_for('get_blog_id', _id=objava._id) }}" class="text-decoration-none text-dark">
                         <div class="card bg-white shadow border-dark rounded-0">
-                            <!--
-                            <img src="{{ url_for('static', filename='blog/' ~ objava.image_filename) }}"
-                                 alt="{{ objava.naslov }}" class="card-img-top" style="max-height:200px;width:auto;">
-                                 -->
                             <div class="card-body">
                                 <h3 class="card-title border-bottom pb-2 fw-bold">{{ objava.naslov }}</h3>
                                 <p class="card-text">
