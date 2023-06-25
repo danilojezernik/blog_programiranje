@@ -66,7 +66,7 @@ def search():
         for key in o:
             if key in ['_id', 'ustvarjeno']:
                 continue
-            if search in o.get(key, None):
+            if o[key] is not None and search in o[key]:
                 najdene.append(o)
                 break
 
