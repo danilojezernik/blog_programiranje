@@ -222,15 +222,11 @@ def get_admin():
             image = request.files['image']
             if image.filename != '':
                 if allowed_file(image.filename):
-                    filename = secure_filename(image.filename)
-                    image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                    image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                    im = Image.open(image_path)
 
-                    buffered = BytesIO()
-                    im.save(buffered, format="PNG")
+                    image = request.files['image']
+                    image_string = base64.b64encode(image.read())
 
-                    imageData = f"data:image/png;base64,{base64.b64encode(buffered.getvalue()).decode()}"
+                    imageData = f"data:image/png;base64,{image_string.decode()}"
                 else:
                     return redirect(request.url)
         inserted_id = db.this.objave.insert_one(
