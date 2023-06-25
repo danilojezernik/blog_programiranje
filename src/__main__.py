@@ -1,15 +1,10 @@
 import base64
-import os
-from io import BytesIO
 
 import flask
-from PIL import Image
 from bson import ObjectId
 from flask import Flask, render_template, request, redirect, flash, url_for
 
 import datetime
-
-from werkzeug.utils import secure_filename
 
 from src import db, env
 from src.db import count_kategorije, count_tagi, is_admin
