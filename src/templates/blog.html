@@ -12,8 +12,8 @@
                             <div class="card-body">
                                 <h3 class="card-title border-bottom pb-2 fw-bold">{{ objava.naslov }}</h3>
                                 <p class="card-text">
-                                    {{ objava.vsebina[:800] |safe + '...' if objava.vsebina|length > 800 else
-                                    objava.vsebina |safe }}
+                                    {{ objava.vsebina[:800] + '...' if objava.vsebina|length > 800 else
+                                    objava.vsebina }}
                                 </p>
                                 <p class="card-text">
                                     <small class="text-muted">Tagi:
