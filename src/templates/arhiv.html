@@ -6,7 +6,7 @@
             Arhiv
         </strong>
     </h1>
-    <div class="row row-cols-1 row-cols-md-4 g-4">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for objava in arhiv_objave %}
         <div class="col ">
             <a href="/blog/{{objava._id}}" class="text-decoration-none">
@@ -19,7 +19,7 @@
                             </b>
                         </h5>
                         <p class="card-text">
-                            {{ objava.vsebina[:200] |safe + '...' if objava.vsebina|length > 200 else
+                            {{ objava.vsebina[:400] |safe + '...' if objava.vsebina|length > 400 else
                                     objava.vsebina |safe }}
                         </p>
                     </div>
